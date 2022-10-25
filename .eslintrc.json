@@ -1,26 +1,37 @@
 {
   "env": {
-    "browser": true,
-    "es2021": true,
-    "jest": true
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "mocha": true,
+    "browser": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "rules": {
-    "react/react-in-jsx-scope": "off",
-    "camelcase": "error",
-    "spaced-comment": "error",
-    "quotes": ["error", "single"],
-    "no-duplicate-imports": "error"
-  },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
+  "plugins": ["react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "spread": true,
+      "restParams": true
     }
+  },
+  "rules": {
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
+    "no-var": "error",
+    "no-console": "off",
+    "no-unused-vars": "warn",
+    "func-call-spacing": ["error", "never"],
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+    "space-infix-ops": "error",
+    "eqeqeq": "error",
+    "func-style": "off",
+    "brace-style": "error",
+    "func-names": ["error", "never"],
+    "default-param-last": "error",
+    "react/prop-types": 0
   }
 }
