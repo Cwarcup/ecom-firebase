@@ -1,11 +1,12 @@
-import categoriesData from './data/categories.json'
-import Directory from './components/Directory'
+import Home from './components/Home'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className='App'>
-      <Directory categories={categoriesData} />
-    </div>
+    <Routes>
+      <Route path='*' element={<h1>Not Found</h1>} />
+      <Route path='/' element={<Home />} />
+    </Routes>
   )
 }
 
