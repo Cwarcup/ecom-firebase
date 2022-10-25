@@ -1,12 +1,10 @@
-import categoriesJSON from './data/categories.json'
-import CategoryItem from './components/categoryItem/CategoryItem'
+import categoriesData from './data/categories.json'
+import Directory from './components/Directory'
 
 function App() {
   return (
-    <div className='categories-container'>
-      {categoriesJSON.map((category) => (
-        <CategoryItem key={category.id} category={category} />
-      ))}
+    <div className='App'>
+      <Directory categories={categoriesData} />
     </div>
   )
 }
