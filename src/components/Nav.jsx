@@ -52,6 +52,11 @@ const Nav = () => {
                   Shop
                 </Link>
               </li>
+              <li className=''>
+                <Link className='text-neutral hover:text-secondary' to='/sign-in'>
+                  Sign In
+                </Link>
+              </li>
               <li className='mt-2 sm:mt-0'>
                 <Link
                   className='rounded-xl border-2 border-secondary px-6 py-2 font-medium text-success hover:bg-primary'
