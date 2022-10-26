@@ -39,6 +39,7 @@ const SignUp = () => {
         // also pass the displayName from the form. This is passed as an additionalInformationObj to the createUserDocumentFromAuth() function
         await createUserDocumentFromAuth(response.user, { displayName })
         resetFormFields()
+        console.log('successful sign up')
       }
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {

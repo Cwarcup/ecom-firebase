@@ -3,14 +3,16 @@ import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
   signInWithGoogleRedirect,
+  signInAuthUserWithEmailAndPassword,
 } from '../utils/firebase/firebaseUtils'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getRedirectResult } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 import FormInput from './FormInput'
 import Button from './Button'
 
-const SignIn = () => {
+const Authenticate = () => {
+  // handles the google sign in redirect
   useEffect(() => {
     const handleRedirectResult = async () => {
       // get the redirect result from the signInWithGoogleRedirect() function
@@ -25,30 +27,62 @@ const SignIn = () => {
     handleRedirectResult()
   }, [])
 
-  const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup()
-    const userDocRef = await createUserDocumentFromAuth(user)
-  }
-  const logGoogleRedirectUser = async () => {
+  // const logGoogleUser = async () => {
+  //   const { user } = await signInWithGooglePopup()
+  //   const userDocRef = await createUserDocumentFromAuth(user)
+  // }
+  const signInGoogleRedirectUser = async () => {
     const { user } = await signInWithGoogleRedirect()
+    // triggers the useEffect() hook above
+  }
+  // end of google sign in redirect
+
+  // form fields
+  // set the initial state of the form
+  const defaultFormFields = {
+    email: '',
+    password: '',
+  }
+
+  const [formFields, setFormFields] = useState(defaultFormFields)
+
+  const { email, password } = formFields
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields)
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormFields({ ...formFields, [name]: value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    console.log('formFields', formFields)
+
+    try {
+      const response = await signInAuthUserWithEmailAndPassword(email, password)
+
+      if (response) {
+        resetFormFields()
+        console.log('successful sign in ✅ ', response)
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
     <div className='flex flex-wrap'>
       <div className='flex w-full flex-col md:w-1/2'>
-        <div className='lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-4 bg-white rounded-lg'>
+        <div className='lg:w-[28rem] mx-auto my-auto flex flex-col justify-center p-8 md:justify-start md:px-6 md:pt-4 bg-white rounded-lg'>
           <p className='text-left text-3xl font-bold'>Welcome back</p>
           <p className='mt-2 text-left text-gray-500'>Welcome back, please enter your details.</p>
-          {/* <button
-            className='-2 mt-8 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-secondary ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-info bg-neutral text-primary hover:text-base-100'
-            onClick={logGoogleUser}
-          >
-            <img className='mr-2 h-5' src='https://static.cdnlogo.com/logos/g/35/google-icon.svg' />{' '}
-            Log in with Google
-          </button> */}
           <button
             className='-2 mt-8 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-secondary ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-blue-400 bg-secondary text-white hover:text-base-100'
-            onClick={logGoogleRedirectUser}
+            onClick={signInGoogleRedirectUser}
           >
             <img className='mr-2 h-5' src='https://static.cdnlogo.com/logos/g/35/google-icon.svg' />{' '}
             Log in with Google
@@ -58,12 +92,26 @@ const SignIn = () => {
               or
             </div>
           </div>
-          <form className='flex flex-col pt-3 md:pt-8'>
+          <form className='flex flex-col pt-3 md:pt-8' onSubmit={(e) => handleSubmit(e)}>
             <div className='flex flex-col pt-4'>
-              <FormInput type='email' id='login-email' label='Email' />
+              <FormInput
+                label='Email'
+                onChange={(e) => handleChange(e)}
+                type='email'
+                name='email'
+                required
+                value={email}
+              />
             </div>
             <div className='mb-12 flex flex-col pt-4'>
-              <FormInput type='password' label='Password' />
+              <FormInput
+                label='Password'
+                onChange={(e) => handleChange(e)}
+                type='password'
+                name='password'
+                required
+                value={password}
+              />
             </div>
             <Button type='submit'>Log in</Button>
           </form>
@@ -95,4 +143,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default Authenticate
