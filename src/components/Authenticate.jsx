@@ -1,6 +1,5 @@
 import {
   auth,
-  signInWithGooglePopup,
   createUserDocumentFromAuth,
   signInWithGoogleRedirect,
   signInAuthUserWithEmailAndPassword,
@@ -10,9 +9,22 @@ import { getRedirectResult } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 import FormInput from './FormInput'
 import Button from './Button'
+import AlertBox from './AlertBox'
 
 const Authenticate = () => {
-  // handles the google sign in redirect
+  // form fields
+  // set the initial state of the form
+  const defaultFormFields = {
+    email: '',
+    password: '',
+  }
+
+  const [formFields, setFormFields] = useState(defaultFormFields)
+  const { email, password } = formFields
+
+  const [errorText, setErrorText] = useState(null)
+
+  //!! handles the google sign in redirect
   useEffect(() => {
     const handleRedirectResult = async () => {
       // get the redirect result from the signInWithGoogleRedirect() function
@@ -35,18 +47,7 @@ const Authenticate = () => {
     const { user } = await signInWithGoogleRedirect()
     // triggers the useEffect() hook above
   }
-  // end of google sign in redirect
-
-  // form fields
-  // set the initial state of the form
-  const defaultFormFields = {
-    email: '',
-    password: '',
-  }
-
-  const [formFields, setFormFields] = useState(defaultFormFields)
-
-  const { email, password } = formFields
+  //!! end of google sign in redirect
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
@@ -71,6 +72,24 @@ const Authenticate = () => {
       }
     } catch (error) {
       console.error(error)
+
+      switch (error.code) {
+        case 'auth/user-not-found':
+          setErrorText('No existing user found with that email address')
+          setTimeout(() => {
+            setErrorText(null)
+          }, 3000)
+
+          break
+        case 'auth/wrong-password':
+          setErrorText('Incorrect password')
+          setTimeout(() => {
+            setErrorText(null)
+          }, 3000)
+          break
+        default:
+          setErrorText('Something went wrong')
+      }
     }
   }
 
@@ -112,8 +131,9 @@ const Authenticate = () => {
                 required
                 value={password}
               />
+              {errorText && <AlertBox color={'red'}>{errorText}</AlertBox>}
+              <Button type='submit'>Log in</Button>
             </div>
-            <Button type='submit'>Log in</Button>
           </form>
           <div className='py-12 text-center'>
             <p className='whitespace-nowrap text-gray-600'>
