@@ -1,15 +1,28 @@
-import '../sass/categoryItem.styles.scss'
-
 const CategoryItem = ({ category }) => {
   const { title, imageUrl } = category
   return (
-    <div className='category-container'>
-      <div className='background-image' style={{ backgroundImage: `url(${imageUrl})` }} />
-      <div className='category-body-container'>
-        <h2>{title}</h2>
-        <p>Shop Now</p>
-      </div>
-    </div>
+    <>
+      <article className='relative'>
+        <div className='aspect-square overflow-hidden'>
+          <img
+            className='group-hover:scale-125 h-full w-full object-cover transition-all duration-300'
+            src={imageUrl}
+            alt='clothing'
+          />
+        </div>
+
+        <div className='mt-4 flex items-start justify-between'>
+          <div className=''>
+            <h3 className='text-xs font-semibold sm:text-sm md:text-base'>
+              <a href='#' title='' className='cursor-pointer'>
+                {title}
+                <span className='absolute' aria-hidden='true'></span>
+              </a>
+            </h3>
+          </div>
+        </div>
+      </article>
+    </>
   )
 }
 
