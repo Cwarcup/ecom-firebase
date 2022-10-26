@@ -1,7 +1,13 @@
 // set up firebase
 
 import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth'
+import {
+  getAuth,
+  signInWithPopup,
+  signInWithRedirect,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth'
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore'
 
 // create an app instance based off the config
@@ -25,11 +31,16 @@ googleProvider.setCustomParameters({ prompt: 'select_account' })
 export const auth = getAuth()
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
-// firestore
+
+// firestore - database
 export const db = getFirestore()
 
+// create or confirm a user document in the firestore database
 // pass the response.user object from the signInWithGooglePopup() function
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInformationObj) => {
+  // if there is no userAuth object, return
+  if (!userAuth) return
+
   // creates a reference to the user document in the firestore database
   const userRef = doc(db, 'users', userAuth.uid)
 
@@ -46,6 +57,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...additionalInformationObj,
       })
     } catch (error) {
       console.log('error creating user', error.message)
@@ -54,4 +66,11 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 
   // if user data exists, return the user data
   return userRef
+}
+
+// Authenticate with Firebase using Password-Based Accounts
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return
+
+  return await createUserWithEmailAndPassword(auth, email, password)
 }

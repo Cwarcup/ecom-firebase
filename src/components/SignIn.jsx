@@ -15,7 +15,6 @@ const SignIn = () => {
       const response = await getRedirectResult(auth)
 
       if (response) {
-        console.log('response', response)
         // create a user document in the firestore database
         createUserDocumentFromAuth(response.user)
       }

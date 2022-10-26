@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from '../utils/firebase/firebaseUtils'
 
 const SignUp = () => {
   // set the initial state of the form
@@ -13,9 +17,33 @@ const SignUp = () => {
 
   const { displayName, email, password } = formFields
 
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields)
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormFields({ ...formFields, [name]: value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const response = await createAuthUserWithEmailAndPassword(email, password)
+
+      if (response) {
+        // create a user document in the firestore database
+        // also pass the displayName from the form. This is passed as an additionalInformationObj to the createUserDocumentFromAuth() function
+        await createUserDocumentFromAuth(response.user, { displayName })
+        resetFormFields()
+      }
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        alert('That email address is already in use!')
+      }
+      console.error(error)
+    }
   }
 
   return (
@@ -34,14 +62,15 @@ const SignUp = () => {
             <p className='mt-2 mb-5 text-base leading-tight text-gray-600'>
               Create an account to get started.
             </p>
-            <form className='mt-8'>
+            <form className='mt-8' onSubmit={(e) => handleSubmit(e)}>
               <div className='relative mt-2 w-full'>
                 <input
                   onChange={(e) => handleChange(e)}
                   name='displayName'
                   type='text'
                   required
-                  placeholder='Name'
+                  placeholder=''
+                  value={displayName}
                   className='border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-secondary focus:outline-none focus:ring-0'
                 />
                 <label
@@ -58,7 +87,8 @@ const SignUp = () => {
                   type='email'
                   name='email'
                   required
-                  placeholder='Email'
+                  placeholder=''
+                  value={email}
                   className='border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-secondary focus:outline-none focus:ring-0'
                 />
                 <label
@@ -72,11 +102,12 @@ const SignUp = () => {
               <div className='relative mt-2 w-full'>
                 <input
                   onChange={(e) => handleChange(e)}
-                  type='text'
+                  type='password'
                   name='password'
                   className='border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-secondary focus:outline-none focus:ring-0'
                   required
-                  placeholder='Password'
+                  placeholder=''
+                  value={password}
                 />
                 <label
                   htmlFor='password'
