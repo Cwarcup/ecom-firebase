@@ -55,3 +55,33 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 
 > Now if a user does not exist in the firestore database, we create a new user document in the firestore database. We use the `userAuth` object to create the user data.
 
+
+Can also use `signInWithRedirect`, but this creates some additional issues. When this method is used, you need to use the `getRedirectResult` method to get the `userAuth` object. This method returns a `UserCredential` object. This object has a `user` property which is the `userAuth` object. 
+
+```js
+// firebase.utils.js
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
+
+
+
+// sign in component
+useEffect(() => {
+    const handleRedirectResult = async () => {
+      // get the redirect result from the signInWithGoogleRedirect() function
+      const response = await getRedirectResult(auth)
+
+      if (response) {
+        console.log('response', response)
+        // create a user document in the firestore database
+        createUserDocumentFromAuth(response.user)
+      }
+    }
+
+    handleRedirectResult()
+  }, [])
+
+  // on click of the sign in button
+    const logGoogleRedirectUser = async () => {
+    const { user } = await signInWithGoogleRedirect()
+  }
+```
