@@ -1,9 +1,34 @@
-import { signInWithGooglePopup, createUserDocumentFromAuth } from '../utils/firebase/firebaseUtils'
+import {
+  auth,
+  signInWithGooglePopup,
+  createUserDocumentFromAuth,
+  signInWithGoogleRedirect,
+} from '../utils/firebase/firebaseUtils'
+import { useEffect } from 'react'
+import { getRedirectResult } from 'firebase/auth'
 
 const SignIn = () => {
+  useEffect(() => {
+    const handleRedirectResult = async () => {
+      // get the redirect result from the signInWithGoogleRedirect() function
+      const response = await getRedirectResult(auth)
+
+      if (response) {
+        console.log('response', response)
+        // create a user document in the firestore database
+        createUserDocumentFromAuth(response.user)
+      }
+    }
+
+    handleRedirectResult()
+  }, [])
+
   const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup()
-    const userDocRef = await createUserDocumentFromAuth(response.user)
+    const { user } = await signInWithGooglePopup()
+    const userDocRef = await createUserDocumentFromAuth(user)
+  }
+  const logGoogleRedirectUser = async () => {
+    const { user } = await signInWithGoogleRedirect()
   }
 
   return (
@@ -18,6 +43,13 @@ const SignIn = () => {
           >
             <img className='mr-2 h-5' src='https://static.cdnlogo.com/logos/g/35/google-icon.svg' />{' '}
             Log in with Google
+          </button>
+          <button
+            className='-2 mt-8 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-secondary ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-info bg-neutral text-primary hover:text-base-100'
+            onClick={logGoogleRedirectUser}
+          >
+            <img className='mr-2 h-5' src='https://static.cdnlogo.com/logos/g/35/google-icon.svg' />{' '}
+            Log in with Google Redirect
           </button>
         </div>
       </div>
