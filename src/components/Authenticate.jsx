@@ -4,12 +4,13 @@ import {
   signInWithGoogleRedirect,
   signInAuthUserWithEmailAndPassword,
 } from '../utils/firebase/firebaseUtils'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { getRedirectResult } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
+import { UserContext } from '../context/UserContext'
 
 const Authenticate = () => {
   // form fields
@@ -24,6 +25,8 @@ const Authenticate = () => {
 
   const [errorText, setErrorText] = useState(null)
 
+  const { setCurrentUser } = useContext(UserContext)
+
   //!! handles the google sign in redirect
   useEffect(() => {
     const handleRedirectResult = async () => {
@@ -33,6 +36,8 @@ const Authenticate = () => {
       if (response) {
         // create a user document in the firestore database
         createUserDocumentFromAuth(response.user)
+        // set the current user in the UserContext
+        setCurrentUser(response.user)
       }
     }
 
@@ -69,6 +74,7 @@ const Authenticate = () => {
       if (response) {
         resetFormFields()
         console.log('successful sign in ✅ ', response)
+        setCurrentUser(response.user)
       }
     } catch (error) {
       console.error(error)

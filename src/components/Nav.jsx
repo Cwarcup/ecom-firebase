@@ -1,8 +1,14 @@
 import { Outlet, Link } from 'react-router-dom'
 import { FaCouch } from 'react-icons/fa'
+import { useContext } from 'react'
+import { UserContext } from '../context/UserContext'
+
 // use the outlet component to render the child components of the Nav component
 
 const Nav = () => {
+  const { currentUser } = useContext(UserContext)
+  console.log(currentUser)
+
   return (
     <>
       <header className='mb-2 px-4 shadow'>
@@ -52,11 +58,17 @@ const Nav = () => {
                   Shop
                 </Link>
               </li>
-              <li className=''>
-                <Link className='text-neutral hover:text-secondary' to='/sign-in'>
-                  Sign In
-                </Link>
-              </li>
+              {currentUser ? (
+                <li className=''>
+                  <p className='text-neutral hover:text-secondary'>{currentUser?.email}</p>
+                </li>
+              ) : (
+                <li className=''>
+                  <Link className='text-neutral hover:text-secondary' to='/sign-in'>
+                    Sign In
+                  </Link>
+                </li>
+              )}
               <li className='mt-2 sm:mt-0'>
                 <Link
                   className='rounded-xl border-2 border-secondary px-6 py-2 font-medium text-success hover:bg-primary'
