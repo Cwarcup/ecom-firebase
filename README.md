@@ -25,10 +25,33 @@ Can check if data exists in a document using the `exists` property on the `Docum
 export const createUserDocumentFromAuth = async (userAuth) => {
   // creates a reference to the user document in the firestore database
   const userRef = doc(db, 'users', userAuth.uid)
-
+  console.log('userRef: ', userRef)
   // get the data related to a document. Returns a DocumentSnapshot
   const userSnapshot = await getDoc(userRef)
   //
   console.log('userSnapshot', userSnapshot.exists()) // true or false
+
+  // if user data does not exist, create a new user document in the firestore database. Use the userAuth object to create the user data
+  if (!userSnapshot.exists()) {
+    const { displayName, email } = userAuth
+    const createdAt = new Date()
+
+    try {
+      // create a new user document in the firestore database
+      await setDoc(userRef, {
+        displayName,
+        email,
+        createdAt,
+      })
+    } catch (error) {
+      console.log('error creating user', error.message)
+    }
+  }
+
+  // if user data exists, return the user data
+  return userRef
 }
 ```
+
+> Now if a user does not exist in the firestore database, we create a new user document in the firestore database. We use the `userAuth` object to create the user data.
+
