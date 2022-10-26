@@ -1,12 +1,8 @@
 // set up firebase
 
 import { initializeApp } from 'firebase/app'
-const {
-  getAuth,
-  signInWithPopup,
-  signInWithRedirect,
-  GoogleAuthProvider,
-} = require('firebase/auth')
+import { getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth'
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore'
 
 // create an app instance based off the config
 const firebaseConfig = {
@@ -28,3 +24,17 @@ provider.setCustomParameters({ prompt: 'select_account' })
 
 export const auth = getAuth()
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
+
+// firestore
+export const db = getFirestore()
+
+// pass the response.user object from the signInWithGooglePopup() function
+export const createUserDocumentFromAuth = async (userAuth) => {
+  // creates a reference to the user document in the firestore database
+  const userRef = doc(db, 'users', userAuth.uid)
+  console.log('userRef: ', userRef)
+  // get the data related to a document. Returns a DocumentSnapshot
+  const userSnapshot = await getDoc(userRef)
+  //
+  console.log('userSnapshot', userSnapshot.exists()) // true or false
+}
