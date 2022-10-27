@@ -1,56 +1,56 @@
 [
   {
     "id": 1,
-    "name": "Brown Brim",
-    "imageUrl": "https://i.ibb.co/ZYW3VTp/brown-brim.png",
-    "price": 25
+    "name": "Timer Charme Tan Sofa",
+    "imageUrl": "https://cdn-images.article.com/products/SKU2128/2890x1500/image88973.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 3899
   },
   {
     "id": 2,
-    "name": "Blue Beanie",
-    "imageUrl": "https://i.ibb.co/ypkgK0X/blue-beanie.png",
-    "price": 18
+    "name": "Ceni Fresh White Sofa",
+    "imageUrl": "https://cdn-images.article.com/products/SKU2556/2890x1500/image60542.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 1299
   },
   {
     "id": 3,
-    "name": "Brown Cowboy",
-    "imageUrl": "https://i.ibb.co/QdJwgmp/brown-cowboy.png",
-    "price": 35
+    "name": "Timber Olio Green Sofa",
+    "imageUrl": "https://cdn-images.article.com/products/SKU12684/2890x1500/image58197.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 1699
   },
   {
     "id": 4,
-    "name": "Grey Brim",
-    "imageUrl": "https://i.ibb.co/RjBLWxB/grey-brim.png",
-    "price": 25
+    "name": "Nirvana Dakota Tan Sofa",
+    "imageUrl": "https://cdn-images.article.com/products/SKU407/2890x1500/image72520.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 2999
   },
   {
     "id": 5,
-    "name": "Green Beanie",
-    "imageUrl": "https://i.ibb.co/YTjW3vF/green-beanie.png",
-    "price": 18
+    "name": "Ceni Fresh White Loveseat",
+    "imageUrl": "https://cdn-images.article.com/products/SKU2606/2890x1500/image60643.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 1049
   },
   {
     "id": 6,
-    "name": "Palm Tree Cap",
-    "imageUrl": "https://i.ibb.co/rKBDvJX/palm-tree-cap.png",
-    "price": 14
+    "name": "Gabriola Ivory Bouclé Loveseat",
+    "imageUrl": "https://cdn-images.article.com/products/SKU12859/2890x1500/image46825.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 899
   },
   {
     "id": 7,
-    "name": "Red Beanie",
-    "imageUrl": "https://i.ibb.co/bLB646Z/red-beanie.png",
-    "price": 18
+    "name": "Callais Beach Sand Sofa",
+    "imageUrl": "https://cdn-images.article.com/products/SKU18124/2890x1500/image78694.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 1899
   },
   {
     "id": 8,
-    "name": "Wolf Cap",
-    "imageUrl": "https://i.ibb.co/1f2nWMM/wolf-cap.png",
-    "price": 14
+    "name": "Sven Charme Tan 72inch Sofa",
+    "imageUrl": "https://cdn-images.article.com/products/SKU416/2890x1500/image88321.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 2899
   },
   {
     "id": 9,
-    "name": "Blue Snapback",
-    "imageUrl": "https://i.ibb.co/X2VJP2W/blue-snapback.png",
-    "price": 16
+    "name": "Abisko Quartz White Sofa",
+    "imageUrl": "https://cdn-images.article.com/products/SKU11884/2890x1500/image46333.jpg?fit=max&w=2740&q=60&fm=webp",
+    "price": 1599
   }
 ]
