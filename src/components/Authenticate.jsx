@@ -44,14 +44,8 @@ const Authenticate = () => {
     handleRedirectResult()
   }, [])
 
-  // const logGoogleUser = async () => {
-  //   const { user } = await signInWithGooglePopup()
-  //   const userDocRef = await createUserDocumentFromAuth(user)
-  // }
   const signInGoogleRedirectUser = async () => {
-    const { user } = await signInWithGoogleRedirect()
-    // triggers the useEffect() hook above
-    await createUserDocumentFromAuth(user)
+    await signInWithGoogleRedirect()
   }
   //!! end of google sign in redirect
 
@@ -67,15 +61,11 @@ const Authenticate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log('formFields', formFields)
-
     try {
       const response = await signInAuthUserWithEmailAndPassword(email, password)
 
       if (response) {
         resetFormFields()
-        console.log('successful sign in ✅ ', response)
-        setCurrentUser(response.user)
       }
     } catch (error) {
       console.error(error)

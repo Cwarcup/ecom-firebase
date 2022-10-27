@@ -7,13 +7,9 @@ import { signOutUser } from '../utils/firebase/firebaseUtils'
 // use the outlet component to render the child components of the Nav component
 
 const Nav = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext)
-  console.log(currentUser)
+  const { currentUser } = useContext(UserContext)
+  console.log('currentUser from nav', currentUser)
 
-  const handleSignOut = async () => {
-    await signOutUser()
-    setCurrentUser(null)
-  }
 
   return (
     <>
@@ -66,7 +62,7 @@ const Nav = () => {
               </li>
               {currentUser ? (
                 <li className=''>
-                  <span className='text-neutral hover:text-secondary' onClick={handleSignOut}>
+                  <span className='text-neutral hover:text-secondary' onClick={signOutUser}>
                     Sign Out
                   </span>
                 </li>

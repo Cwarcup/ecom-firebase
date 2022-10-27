@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../utils/firebase/firebaseUtils'
 import FormInput from './FormInput'
 import Button from './Button'
-import { UserContext } from '../context/UserContext'
+// import { UserContext } from '../context/UserContext'
 import AlertBox from './AlertBox'
 
 const SignUp = () => {
@@ -20,8 +20,6 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password } = formFields
   const [errorText, setErrorText] = useState(null)
-
-  const { setCurrentUser } = useContext(UserContext)
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
@@ -43,8 +41,6 @@ const SignUp = () => {
         // also pass the displayName from the form. This is passed as an additionalInformationObj to the createUserDocumentFromAuth() function
         await createUserDocumentFromAuth(response.user, { displayName })
         resetFormFields()
-        console.log('successful sign up')
-        setCurrentUser(response.user)
       }
     } catch (error) {
       switch (error.code) {
