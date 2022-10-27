@@ -4,10 +4,7 @@ import { CartContext } from '../context/CartContext'
 
 const Cart = () => {
   // get cartItems from context
-  const { cartItems } = useContext(CartContext)
-
-  // calculate total price of items in cart
-  const cartSubtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  const { cartItems, cartSubtotal } = useContext(CartContext)
 
   return (
     <section className='h-screen py-12 sm:py-16 lg:py-20'>

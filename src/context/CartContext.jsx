@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 export const CartContext = createContext({
   cart: null,
@@ -43,17 +43,22 @@ const removeCartItem = (cartItems, itemToRemove) => {
 }
 
 export const CartProvider = ({ children }) => {
-  // set some initial state in our cart
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Timer Charme Tan Sofa',
-      imageUrl:
-        'https://cdn-images.article.com/products/SKU2128/2890x1500/image88973.jpg?fit=max&w=2740&q=60&fm=webp',
-      price: 3899,
-      quantity: 1,
-    },
-  ])
+  const [cartItems, setCartItems] = useState([])
+  const [cartCount, setCartCount] = useState(0)
+  const [cartSubtotal, setCartSubtotal] = useState(0)
+
+  useEffect(() => {
+    // calculate number of items in cart
+    const cartItemsCount = cartItems.reduce(
+      (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
+      0,
+    )
+    setCartCount(cartItemsCount)
+
+    // calculate total price of items in cart
+    const cartItemsSubtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    setCartSubtotal(cartItemsSubtotal)
+  }, [cartItems])
 
   // pass ability to add item to cart to context
   const addItemToCart = (productToAdd) => {
@@ -66,7 +71,7 @@ export const CartProvider = ({ children }) => {
   }
 
   // values/functions to pass to context
-  const value = { cartItems, addItemToCart, removeItemFromCart }
+  const value = { cartItems, addItemToCart, removeItemFromCart, cartCount, cartSubtotal }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

@@ -10,13 +10,7 @@ import { CartContext } from '../context/CartContext'
 const Nav = () => {
   const { currentUser } = useContext(UserContext)
 
-  const { cartItems } = useContext(CartContext)
-
-  // iterate over cart items and add up the total quantity
-  const cartItemsCount = cartItems.reduce(
-    (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
-    0,
-  )
+  const { cartCount } = useContext(CartContext)
 
   return (
     <>
@@ -85,8 +79,8 @@ const Nav = () => {
                   className='rounded-xl border-2 border-secondary px-6 py-2 font-medium text-success hover:bg-primary'
                   to='/cart'
                 >
-                  {cartItems.length > 0 ? (
-                    <span className='px-1 text-base font-bold'>{cartItemsCount} Items</span>
+                  {cartCount > 0 ? (
+                    <span className='px-1 text-base font-bold'>{cartCount} Items</span>
                   ) : (
                     'Cart'
                   )}
