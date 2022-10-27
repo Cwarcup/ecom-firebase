@@ -1,9 +1,9 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { UserProvider } from './context/UserContext'
+import { ProductsProvider } from './context/ProductsContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -12,7 +12,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter>
     <UserProvider>
-      <App />
+      <ProductsProvider>
+        <App />
+      </ProductsProvider>
     </UserProvider>
   </BrowserRouter>,
 )
