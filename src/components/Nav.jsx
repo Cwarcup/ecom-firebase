@@ -3,13 +3,20 @@ import { FaCouch } from 'react-icons/fa'
 import { useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 import { signOutUser } from '../utils/firebase/firebaseUtils'
+import { CartContext } from '../context/CartContext'
 
 // use the outlet component to render the child components of the Nav component
 
 const Nav = () => {
   const { currentUser } = useContext(UserContext)
-  console.log('currentUser from nav', currentUser)
 
+  const { cartItems } = useContext(CartContext)
+
+  // iterate over cart items and add up the total quantity
+  const cartItemsCount = cartItems.reduce(
+    (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
+    0,
+  )
 
   return (
     <>
@@ -78,7 +85,11 @@ const Nav = () => {
                   className='rounded-xl border-2 border-secondary px-6 py-2 font-medium text-success hover:bg-primary'
                   to='/cart'
                 >
-                  Cart
+                  {cartItems.length > 0 ? (
+                    <span className='px-1 text-base font-bold'>{cartItemsCount} Items</span>
+                  ) : (
+                    'Cart'
+                  )}
                 </Link>
               </li>
             </ul>

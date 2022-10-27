@@ -1,6 +1,13 @@
-import React from 'react'
-
+import { useContext } from 'react'
+import { CartContext } from '../context/CartContext'
+// accepts a version of the product data
 const CartItem = ({ cartItem }) => {
+  const { addItemToCart, removeItemFromCart } = useContext(CartContext)
+
+  // handlers for adding/removing items from cart
+  const addProductToCart = () => addItemToCart(cartItem)
+  const removeProductFromCart = () => removeItemFromCart(cartItem)
+
   return (
     <li className='flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0 hover:shadow-lg'>
       <div className='shrink-0'>
@@ -24,13 +31,19 @@ const CartItem = ({ cartItem }) => {
 
             <div className='sm:order-1'>
               <div className='mx-auto flex h-8 items-stretch text-gray-600'>
-                <button className='flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'>
+                <button
+                  className='flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'
+                  onClick={removeProductFromCart}
+                >
                   -
                 </button>
                 <div className='flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition'>
-                  1
+                  {cartItem?.quantity}
                 </div>
-                <button className='flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'>
+                <button
+                  className='flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'
+                  onClick={addProductToCart}
+                >
                   +
                 </button>
               </div>

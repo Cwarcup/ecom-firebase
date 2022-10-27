@@ -1,4 +1,12 @@
+import { useContext } from 'react'
+import { CartContext } from '../context/CartContext'
+
 const ProductCard = ({ key, product }) => {
+  const { addItemToCart } = useContext(CartContext)
+
+  // handlers for adding/removing items from cart
+  const addProductToCart = () => addItemToCart(product)
+
   return (
     <div
       className='group my-5 flex w-full max-w-xs flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg m-auto'
@@ -41,7 +49,10 @@ const ProductCard = ({ key, product }) => {
             <span className='text-3xl font-bold text-slate-900'>${product.price}</span>
           </p>
         </div>
-        <button className='flex items-center justify-center bg-gray-900 px-2 py-1 text-sm text-white transition hover:bg-gray-700'>
+        <button
+          className='flex items-center justify-center bg-gray-900 px-2 py-1 text-sm text-white transition hover:bg-gray-700'
+          onClick={addProductToCart}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='mr-2 h-5 w-5'

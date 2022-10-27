@@ -1,7 +1,11 @@
 import CartItem from './CartItem'
-import shopData from '../data/shop-data'
+import { useContext } from 'react'
+import { CartContext } from '../context/CartContext'
 
 const Cart = () => {
+  // get cartItems from context
+  const { cartItems } = useContext(CartContext)
+
   return (
     <section className='h-screen py-12 sm:py-16 lg:py-20'>
       <div className='mx-auto px-4 sm:px-6 lg:px-8'>
@@ -14,7 +18,7 @@ const Cart = () => {
             <div className='px-4 py-6 sm:px-8 sm:py-10'>
               <div className='flow-root'>
                 <ul className='-my-8'>
-                  {shopData.map((item) => (
+                  {cartItems.map((item) => (
                     <CartItem key={item.id} cartItem={item} />
                   ))}
                 </ul>
