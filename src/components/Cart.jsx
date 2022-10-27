@@ -6,6 +6,9 @@ const Cart = () => {
   // get cartItems from context
   const { cartItems } = useContext(CartContext)
 
+  // calculate total price of items in cart
+  const cartSubtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+
   return (
     <section className='h-screen py-12 sm:py-16 lg:py-20'>
       <div className='mx-auto px-4 sm:px-6 lg:px-8'>
@@ -27,7 +30,7 @@ const Cart = () => {
               <div className='mt-6 border-t border-b py-2'>
                 <div className='flex items-center justify-between'>
                   <p className='text-sm text-gray-400'>Subtotal</p>
-                  <p className='text-lg font-semibold text-gray-900'>$399.00</p>
+                  <p className='text-lg font-semibold text-gray-900'>${cartSubtotal}</p>
                 </div>
                 <div className='flex items-center justify-between'>
                   <p className='text-sm text-gray-400'>Shipping</p>
@@ -37,7 +40,7 @@ const Cart = () => {
               <div className='mt-6 flex items-center justify-between'>
                 <p className='text-sm font-medium text-gray-900'>Total</p>
                 <p className='text-2xl font-semibold text-gray-900'>
-                  <span className='text-xs font-normal text-gray-400'>USD</span> 408.00
+                  <span className='text-xs font-normal text-gray-400'>CAD</span> ${cartSubtotal + 8}
                 </p>
               </div>
 
