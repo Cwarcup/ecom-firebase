@@ -70,8 +70,14 @@ export const CartProvider = ({ children }) => {
     setCartItems(removeCartItem(cartItems, productToRemove))
   }
 
+  // pass ability to set a cart item quantity to 0
+  const clearItemFromCart = (productToClear) => {
+    setCartItems(cartItems.filter((item) => item.id !== productToClear.id))
+  }
+
+
   // values/functions to pass to context
-  const value = { cartItems, addItemToCart, removeItemFromCart, cartCount, cartSubtotal }
+  const value = { cartItems, addItemToCart, removeItemFromCart, cartCount, cartSubtotal, clearItemFromCart }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

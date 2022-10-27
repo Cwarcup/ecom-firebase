@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 // accepts a version of the product data
 const CartItem = ({ cartItem }) => {
-  const { addItemToCart, removeItemFromCart } = useContext(CartContext)
+  const { addItemToCart, removeItemFromCart, clearItemFromCart } = useContext(CartContext)
 
   // handlers for adding/removing items from cart
   const addProductToCart = () => addItemToCart(cartItem)
@@ -55,6 +55,7 @@ const CartItem = ({ cartItem }) => {
           <button
             type='button'
             className='flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900'
+            onClick={() => clearItemFromCart(cartItem)}
           >
             <svg
               className='h-5 w-5'
