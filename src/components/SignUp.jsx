@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../utils/firebase/firebaseUtils'
 import FormInput from './FormInput'
 import Button from './Button'
+import { UserContext } from '../context/UserContext'
+import AlertBox from './AlertBox'
 
 const SignUp = () => {
   // set the initial state of the form
@@ -16,8 +18,10 @@ const SignUp = () => {
   }
 
   const [formFields, setFormFields] = useState(defaultFormFields)
-
   const { displayName, email, password } = formFields
+  const [errorText, setErrorText] = useState(null)
+
+  const { setCurrentUser } = useContext(UserContext)
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
@@ -40,11 +44,27 @@ const SignUp = () => {
         await createUserDocumentFromAuth(response.user, { displayName })
         resetFormFields()
         console.log('successful sign up')
+        setCurrentUser(response.user)
       }
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        alert('That email address is already in use!')
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          setErrorText('Email already in use')
+          break
+        case 'auth/invalid-email':
+          setErrorText('Invalid email')
+          break
+        case 'auth/weak-password':
+          setErrorText('Password is too weak')
+          break
+        default:
+          setErrorText('Something went wrong')
       }
+
+      setTimeout(() => {
+        setErrorText(null)
+      }, 3000)
+
       console.error(error)
     }
   }
@@ -95,6 +115,7 @@ const SignUp = () => {
               <Button onChange={(e) => handleChange(e)} type='submit' value='Create account'>
                 Create account
               </Button>
+              {errorText && <AlertBox color={'blue'}>{errorText}</AlertBox>}
             </form>
             <div className='mt-4 text-center'>
               <p className='text-sm text-gray-600'>

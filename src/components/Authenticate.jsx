@@ -51,6 +51,7 @@ const Authenticate = () => {
   const signInGoogleRedirectUser = async () => {
     const { user } = await signInWithGoogleRedirect()
     // triggers the useEffect() hook above
+    await createUserDocumentFromAuth(user)
   }
   //!! end of google sign in redirect
 
