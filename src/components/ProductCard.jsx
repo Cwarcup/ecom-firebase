@@ -1,17 +1,14 @@
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 
-const ProductCard = ({ key, product }) => {
+const ProductCard = ({ product }) => {
   const { addItemToCart } = useContext(CartContext)
 
   // handlers for adding/removing items from cart
   const addProductToCart = () => addItemToCart(product)
 
   return (
-    <div
-      className='group my-5 flex w-full max-w-xs flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg m-auto'
-      key={key}
-    >
+    <div className='group my-5 flex w-full max-w-xs flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg m-auto'>
       <a className='relative flex h-60 overflow-hidden' href='#'>
         <img
           className='absolute top-0 right-0 h-full w-full object-scale-down'
