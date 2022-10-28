@@ -11,7 +11,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth'
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore'
+import { getFirestore, doc, setDoc, getDoc, collection, writeBatch } from 'firebase/firestore'
 
 // create an app instance based off the config
 const firebaseConfig = {
@@ -37,6 +37,26 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 
 // firestore - database
 export const db = getFirestore()
+
+// adding a collection to firestore
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  // create a collection reference using the db we created above
+  const collectionRef = collection(db, collectionKey)
+
+  // use a batch to write multiple documents at once
+  const batch = writeBatch(db)
+
+  objectsToAdd.forEach((obj) => {
+    // create a new document reference
+    const newDocRef = doc(collectionRef, obj.title.toLowerCase())
+    // add the object to the batch
+    batch.set(newDocRef, obj)
+  })
+
+  // begins the batch write
+  await batch.commit()
+  console.log('batch write complete')
+}
 
 // create or confirm a user document in the firestore database
 // pass the response.user object from the signInWithGooglePopup() function

@@ -75,9 +75,15 @@ export const CartProvider = ({ children }) => {
     setCartItems(cartItems.filter((item) => item.id !== productToClear.id))
   }
 
-
   // values/functions to pass to context
-  const value = { cartItems, addItemToCart, removeItemFromCart, cartCount, cartSubtotal, clearItemFromCart }
+  const value = {
+    cartItems,
+    addItemToCart,
+    removeItemFromCart,
+    cartCount,
+    cartSubtotal,
+    clearItemFromCart,
+  }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
@@ -87,6 +93,6 @@ export const CartProvider = ({ children }) => {
 //   id: number,
 //   name: string,
 //   price: number,
-//   quantity: number,   //!! we need to add this
+//   quantity: number,   // * we need to add this
 //   imageUrl: string,
 // }
