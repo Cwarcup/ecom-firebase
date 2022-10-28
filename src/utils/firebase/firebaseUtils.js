@@ -11,7 +11,16 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth'
-import { getFirestore, doc, setDoc, getDoc, collection, writeBatch } from 'firebase/firestore'
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from 'firebase/firestore'
 
 // create an app instance based off the config
 const firebaseConfig = {
@@ -48,6 +57,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 
   objectsToAdd.forEach((obj) => {
     // create a new document reference
+    // we are using the title from the object for the collection document id
     const newDocRef = doc(collectionRef, obj.title.toLowerCase())
     // add the object to the batch
     batch.set(newDocRef, obj)
@@ -56,6 +66,21 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   // begins the batch write
   await batch.commit()
   console.log('batch write complete')
+}
+
+// get a document from firestore
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories')
+  const q = query(collectionRef)
+
+  const querySnapshot = await getDocs(q) // can use this to access the data
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data()
+    acc[title.toLowerCase()] = items
+    return acc
+  })
+
+  return categoryMap
 }
 
 // create or confirm a user document in the firestore database
