@@ -22,6 +22,7 @@ export const CategoriesProvider = ({ children }) => {
         }
         return acc
       }, {})
+      console.log('fixedCategoryData', fixedCategoryData)
       setCategories(fixedCategoryData)
     }
 

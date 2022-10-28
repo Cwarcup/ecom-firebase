@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
     <div className='group my-5 flex w-full max-w-xs flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg m-auto'>
       <a className='relative flex h-60 overflow-hidden' href='#'>
         <img
-          className='absolute top-0 right-0 h-full w-full object-scale-down'
+          className='absolute top-0 right-0 h-full w-full object-cover'
           src={product.imageUrl}
           alt='product image'
         />
