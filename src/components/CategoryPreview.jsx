@@ -1,7 +1,7 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import CategoryPage from './CategoryPage'
 // components displays the categories in the database
-// currently have more categories, but only displaying 3
+
 const CategoryPreview = () => {
   const categoryNames = [
     {
@@ -24,6 +24,20 @@ const CategoryPreview = () => {
       name: 'Mens',
       description: 'Nothing but the best for the fellas',
       imageSrc: 'https://i.ibb.co/xJS0T3Y/camo-vest.png',
+      imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
+      href: '#',
+    },
+    {
+      name: 'Hats',
+      description: 'Cover your receding hairline',
+      imageSrc: 'https://i.ibb.co/ZYW3VTp/brown-brim.png',
+      imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
+      href: '#',
+    },
+    {
+      name: 'Womens',
+      description: 'We also got you covered',
+      imageSrc: 'https://i.ibb.co/7CQVJNm/blue-tank.png',
       imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
       href: '#',
     },

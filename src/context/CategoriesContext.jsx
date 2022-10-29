@@ -12,7 +12,6 @@ export const CategoriesProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const categoryMap = await getCategoriesAndDocuments()
-      console.log('categoryMap', categoryMap)
 
       // used to filter out the categories that are not in the CATEGORIES_KEYS array
       const CATEGORIES_KEYS = ['jackets', 'mens', 'sneakers', 'womens', 'hats']
@@ -24,7 +23,6 @@ export const CategoriesProvider = ({ children }) => {
         return acc
       }, {})
 
-      console.log('fixedCategoryData', fixedCategoryData)
       setCategories(fixedCategoryData)
     }
 
