@@ -24,12 +24,12 @@ import {
 
 // create an app instance based off the config
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  apiKey: 'AIzaSyBfN9EoX61WfZWOJBl_I6L8CO6lMrj9dg0',
+  authDomain: 'lf-clothing-db.firebaseapp.com',
   projectId: 'lf-clothing-db',
   storageBucket: 'lf-clothing-db.appspot.com',
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  messagingSenderId: '770737674200',
+  appId: '1:770737674200:web:ab3d5874540ecee38a44ad',
 }
 
 // Initialize Firebase
