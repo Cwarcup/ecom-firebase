@@ -5,7 +5,9 @@ const ProductCard = ({ product }) => {
   const { addItemToCart } = useContext(CartContext)
 
   // handlers for adding/removing items from cart
-  const addProductToCart = () => addItemToCart(product)
+  const addProductToCart = () => {
+    addItemToCart(product)
+  }
 
   return (
     <div className='group my-5 flex w-full max-w-xs flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg m-auto'>
@@ -62,6 +64,40 @@ const ProductCard = ({ product }) => {
         </button>
       </div>
     </div>
+    // <div key={product.id} className='group relative'>
+    //   <div className='min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80'>
+    //     <img
+    //       src={product.imageUrl}
+    //       alt={product.name}
+    //       className='h-full w-full object-cover object-center lg:h-full lg:w-full'
+    //     />
+    //   </div>
+    //   <div className='mt-4 flex justify-between'>
+    //     <div>
+    //       <h3 className='text-sm text-gray-700'>
+    //         <a href={'#'}>
+    //           <span aria-hidden='true' className='absolute inset-0' />
+    //           {product.name}
+    //         </a>
+    //       </h3>
+    //     </div>
+    //     <p className='text-sm font-medium text-gray-900'>${product.price}</p>
+    //   </div>
+    //   <button
+    //     className='flex items-center justify-center bg-gray-900 px-2 py-1 text-sm text-white transition hover:bg-gray-700'
+    //     onClick={addProductToCart}
+    //   >
+    //     <svg
+    //       xmlns='http://www.w3.org/2000/svg'
+    //       className='mr-2 h-5 w-5'
+    //       viewBox='0 0 20 20'
+    //       fill='currentColor'
+    //     >
+    //       <path d='M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z' />
+    //     </svg>
+    //     Add to cart
+    //   </button>
+    // </div>
   )
 }
 

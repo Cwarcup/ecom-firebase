@@ -5,7 +5,6 @@ import Authenticate from './components/Authenticate'
 import SignUp from './components/SignUp'
 import CategoryPreview from './components/CategoryPreview'
 import Cart from './components/Cart'
-import CategoryPage from './components/CategoryPage'
 
 function App() {
   return (

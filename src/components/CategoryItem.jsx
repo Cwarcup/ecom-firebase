@@ -16,7 +16,6 @@ const CategoryItem = ({ category }) => {
             <h3 className='text-xs font-semibold sm:text-sm md:text-base'>
               <a href='#' title='' className='cursor-pointer'>
                 {title}
-                <span className='absolute' aria-hidden='true'></span>
               </a>
             </h3>
           </div>
