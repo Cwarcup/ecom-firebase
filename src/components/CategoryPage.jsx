@@ -2,10 +2,10 @@
 import { useParams } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react'
 import { CategoriesContext } from '../context/CategoriesContext'
-import { CartContext } from '../context/CartContext'
 import capitalizeFirstLetter from '../utils/capitalizeFirstLetter'
 import ProductCard from '../components/ProductCard'
 
+// shows the list of items for a category
 const CategoryPage = () => {
   const { category } = useParams()
   const { categories } = useContext(CategoriesContext)

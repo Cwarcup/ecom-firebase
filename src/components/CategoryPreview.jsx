@@ -2,6 +2,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import CategoryPage from './CategoryPage'
 // components displays the categories in the database
 
+// displays the categories in the database as links
+// accessed at /shop
 const CategoryPreview = () => {
   const categoryNames = [
     {

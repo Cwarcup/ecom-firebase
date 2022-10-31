@@ -1,3 +1,4 @@
+//!! use in the cart checkout page - Cart.jsx
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 // accepts a version of the product data
