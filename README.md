@@ -1,87 +1,81 @@
-Work in progress
-
-
-## Authentication
+# Firebase Ecom Demo App
+## Firebase
+### Authentication
 
 Uses Firebase Authentication. See [Firebase Authentication](https://firebase.google.com/docs/auth/).
 
-Learn:
-- using the `signInWithPopup` method to obtain a users `accessToken`. This is used to authenticate with the backend.
-  - We can use this `accessToken` to make CRUD requests to the backend.
-- whenever a user authenticates, we create a new user in the backend. This is done by calling the `createUser` mutation.
-  - This is done so that we can store the users `accessToken` in the backend. This is used to make CRUD requests to the backend.
-- Was second time using a document store. First time was with Supabase. Notice they are similar to JSON object where we can nest properties. 
+### Firestore Database
 
-Collections: are like tables in a relational database. A collection can contain documents.
-Documents: are like rows in a relational database. Describe the shape of the data.
-Data: is like columns in a relational database. Are stored as key-value pairs inside a document.
+## State Management
 
+Originally used `useContext` and `useState` to manage state. Used for keep track of the user's cart, products from the database, and authentication state.
 
-## Firestore Database
+### Redux
 
-Can check if data exists in a document using the `exists` property on the `DocumentSnapshot` object. This object is returned from the `get` method on a `DocumentReference` object. Recall, this `DocumentReference` object is returned from the `doc` method on a `CollectionReference` object.
+Decided to use Redux to manage state. I noticed the cart items contained a lot of different types of data. The actual items, quantity, price, and other data. In order to keep track of the cart items, I decided to use Redux. 
 
 ```js
-export const createUserDocumentFromAuth = async (userAuth) => {
-  // creates a reference to the user document in the firestore database
-  const userRef = doc(db, 'users', userAuth.uid)
-  console.log('userRef: ', userRef)
-  // get the data related to a document. Returns a DocumentSnapshot
-  const userSnapshot = await getDoc(userRef)
-  //
-  console.log('userSnapshot', userSnapshot.exists()) // true or false
+// shape of the cart item
+{
+  id: number,
+  name: string,
+  price: number,
+  quantity: number, 
+  imageUrl: string,
+}
 
-  // if user data does not exist, create a new user document in the firestore database. Use the userAuth object to create the user data
-  if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth
-    const createdAt = new Date()
-
-    try {
-      // create a new user document in the firestore database
-      await setDoc(userRef, {
-        displayName,
-        email,
-        createdAt,
-      })
-    } catch (error) {
-      console.log('error creating user', error.message)
-    }
-  }
-
-  // if user data exists, return the user data
-  return userRef
+  // values/functions to pass to context
+const value = {
+  cartItems, // array of cart items
+  addItemToCart, // function to add item to cart
+  removeItemFromCart, // function to remove item from cart
+  cartCount, // number of items in cart
+  cartSubtotal, // subtotal of cart
+  clearItemFromCart, // function to clear item from cart
 }
 ```
 
-> Now if a user does not exist in the firestore database, we create a new user document in the firestore database. We use the `userAuth` object to create the user data.
+We have a **lot** of stuff going on in here. Additionally, whenever we make changes to the `cartItems`, we need to update the `cartCount` and `cartSubtotal`. We are currently using `useEffect` to trigger these updates and make the changes. And each of these values are being stored as a separate state with `useState`. 
+
+This is a very **react** way of doing things. This isn't bad, but we can make some improvements.
+
+#### Using Reducers
+
+A reducer is still an object. It's just a function that takes in the current state and an action. The **action** is an object that contains a `type` and `payload`. The `type` is a string that describes what we want to do. The `payload` is the data we want to use to update the state. 
 
 
-Can also use `signInWithRedirect`, but this creates some additional issues. When this method is used, you need to use the `getRedirectResult` method to get the `userAuth` object. This method returns a `UserCredential` object. This object has a `user` property which is the `userAuth` object. 
+| Type                          | Payload                                  |
+| ----------------------------- | ---------------------------------------- |
+| Describes what we want to do. | Data we want to use to update the state. |
+| `string`                      | `any`                                    |
+| `ADD_ITEM`                    | `{ id: 1, name: 'Item 1', price: 10 }`   |
+| Required                      | Optional                                 |
 
-```js
-// firebase.utils.js
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
+The flow of a reducer is as follows:
+
+1. We call the reducer with the current state and an action.
+2. The reducer checks the action's `type` and does something based on that.
+3. Only the required data is passed to the reducer. The reducer doesn't need to know about the entire state. It only needs to know about the data it needs to update.
+4. The reducer returns the new state.
+
+This is very different from the way we were doing things before. When we updated one part of the state (like `cartCount`), we had to update the entire state. This is because we were using `useState` to store each part of the state.
 
 
 
-// sign in component
-useEffect(() => {
-    const handleRedirectResult = async () => {
-      // get the redirect result from the signInWithGoogleRedirect() function
-      const response = await getRedirectResult(auth)
 
-      if (response) {
-        console.log('response', response)
-        // create a user document in the firestore database
-        createUserDocumentFromAuth(response.user)
-      }
-    }
+## Learning
 
-    handleRedirectResult()
-  }, [])
-
-  // on click of the sign in button
-    const logGoogleRedirectUser = async () => {
-    const { user } = await signInWithGoogleRedirect()
-  }
-```
+- [X] Firebase Authentication
+  - [X] Email/Password
+  - [X] Google Popup
+  - [X] Google Redirect
+  - Ended up using Google Redirect and Email/Password.
+- [X] Firebase Firestore
+  - [X] Write: initial products from json file and store in Firestore
+  - [X] Read: fetch products and store in state
+- [x] Tailwind CSS
+- [x] React Router DOM
+- [x] React
+  - [x] useState
+  - [x] useContext
+  - [x] useEffect 
