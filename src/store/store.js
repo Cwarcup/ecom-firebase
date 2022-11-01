@@ -1,10 +1,10 @@
-import { compose, createStore, applyMiddleware } from 'redux'
-import logger from 'redux-logger'
+import { configureStore } from '@reduxjs/toolkit'
 import { rootReducer } from './rootReducer'
 
-// middleware
-const middlewares = [logger]
-const composedEnhancers = compose(applyMiddleware(...middlewares))
-
-// root reducer
-export const store = createStore(rootReducer, undefined, composedEnhancers)
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+})

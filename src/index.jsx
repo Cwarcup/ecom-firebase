@@ -3,8 +3,8 @@ import App from './App'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
-import { Provider } from 'react-redux'
 import React from 'react'
+import { Provider } from 'react-redux'
 import { store } from './store/store'
 
 ///
