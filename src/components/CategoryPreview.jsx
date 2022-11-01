@@ -1,10 +1,37 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import CategoryPage from './CategoryPage'
+import { useEffect } from 'react'
+import { getCategoriesAndDocuments } from '../utils/firebase/firebaseUtils'
+import { setCategoriesMap } from '../store/categories/categoryAction'
+import { useDispatch } from 'react-redux'
+
 // components displays the categories in the database
 
 // displays the categories in the database as links
 // accessed at /shop
 const CategoryPreview = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const categoryMap = await getCategoriesAndDocuments()
+
+      // used to filter out the categories that are not in the CATEGORIES_KEYS array
+      const CATEGORIES_KEYS = ['jackets', 'mens', 'sneakers', 'womens', 'hats']
+
+      const fixedCategoryData = Object.keys(categoryMap).reduce((acc, key) => {
+        if (CATEGORIES_KEYS.includes(key)) {
+          acc[key] = categoryMap[key]
+        }
+        return acc
+      }, {})
+
+      dispatch(setCategoriesMap(fixedCategoryData))
+    }
+
+    fetchProducts()
+  }, [])
+
   const categoryNames = [
     {
       name: 'Sneakers',

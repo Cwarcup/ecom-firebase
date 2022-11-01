@@ -1,20 +1,21 @@
 // need to get the value from the URL
 import { useParams } from 'react-router-dom'
-import { useContext, useState, useEffect } from 'react'
-import { CategoriesContext } from '../context/CategoriesContext'
+import { useState, useEffect } from 'react'
 import capitalizeFirstLetter from '../utils/capitalizeFirstLetter'
 import ProductCard from '../components/ProductCard'
+import { selectCategoriesMap } from '../store/categories/categorySelector'
+import { useSelector } from 'react-redux'
 
 // shows the list of items for a category
 const CategoryPage = () => {
+  const categoriesMap = useSelector(selectCategoriesMap)
   const { category } = useParams()
-  const { categories } = useContext(CategoriesContext)
 
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    setProducts(categories[category])
-  }, [category, categories])
+    setProducts(categoriesMap[category])
+  }, [category, categoriesMap])
 
   return (
     <div className='mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
