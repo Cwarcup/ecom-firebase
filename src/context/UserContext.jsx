@@ -10,30 +10,10 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
 })
 
-export const USER_ACTION_TYPES = {
-  SET_USER: 'SET_USER',
-}
 
-// create a reducer function to update the state
-const userReducer = (state, action) => {
-  // we always have a type and a payload on the action
-  const { type, payload } = action
 
-  // use a switch statement to handle different actions
-  switch (type) {
-    case 'SET_USER':
-      return {
-        ...state, // spread the current state
-        currentUser: payload,
-      }
-    default:
-      throw new Error(`Unhandled action type: ${type}`)
-  }
-}
 
-const INITIAL_USER_STATE = {
-  currentUser: null,
-}
+
 
 // provider component
 export const UserProvider = ({ children }) => {
