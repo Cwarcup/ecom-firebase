@@ -1,7 +1,4 @@
-/* eslint-disable default-param-last */
-export const USER_ACTION_TYPES = {
-  SET_USER: 'SET_USER',
-}
+import USER_ACTION_TYPES from './userActionTypes'
 
 const INITIAL_USER_STATE = {
   currentUser: null,
@@ -14,7 +11,7 @@ const userReducer = (state = INITIAL_USER_STATE, action) => {
 
   // use a switch statement to handle different actions
   switch (type) {
-    case 'SET_USER':
+    case USER_ACTION_TYPES.SET_USER:
       return {
         ...state, // spread the current state
         currentUser: payload,

@@ -1,12 +1,32 @@
-import Home from './components/Home'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux' // NEW
 import { Routes, Route } from 'react-router-dom'
+import Home from './components/Home'
 import Nav from './components/Nav'
 import Authenticate from './components/Authenticate'
 import SignUp from './components/SignUp'
 import CategoryPreview from './components/CategoryPreview'
 import Cart from './components/Cart'
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+} from './utils/firebase/firebaseUtils'
+import { setCurrentUser } from './store/user/userAction'
 
 function App() {
+  const dispatch = useDispatch() // NEW
+
+  useEffect(() => {
+    // onAuthStateChangedListener() is a function that returns an unsubscribe function
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user)
+      }
+      dispatch(setCurrentUser(user)) // NEW
+    })
+
+    return unsubscribe // unsubscribe from the listener when the component unmounts
+  }, [])
   return (
     <Routes>
       <Route path='/' element={<Nav />}>
