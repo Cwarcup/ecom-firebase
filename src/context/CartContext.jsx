@@ -78,20 +78,27 @@ const clearCartItem = (cartItems, cartItemToClear) => {
 export const CartProvider = ({ children }) => {
   const [{ cartCount, cartTotal, cartItems }, dispatch] = useReducer(cartReducer, INITIAL_STATE)
 
+  // used to update the number of items in the cart
+  // and the total price of the items in the cart
   const updateCartItemsReducer = (cartItems) => {
+    // quantity changes
     const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0)
 
+    // price changes
     const newCartTotal = cartItems.reduce(
       (total, cartItem) => total + cartItem.quantity * cartItem.price,
       0,
     )
 
+    // create action to update cart items
+    // payload is the new cart items, count and total
     const payload = {
       cartItems,
       cartCount: newCartCount,
       cartTotal: newCartTotal,
     }
 
+    // dispatch action to update cart items with the action TYPE and payload
     dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS, payload))
   }
 
