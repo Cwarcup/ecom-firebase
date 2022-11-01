@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
-import { UserContext } from '../context/UserContext'
+import { setCurrentUser } from '../store/user/userAction'
 
 const Authenticate = () => {
   // form fields
@@ -24,8 +24,6 @@ const Authenticate = () => {
   const { email, password } = formFields
 
   const [errorText, setErrorText] = useState(null)
-
-  const { setCurrentUser } = useContext(UserContext)
 
   //!! handles the google sign in redirect
   useEffect(() => {
