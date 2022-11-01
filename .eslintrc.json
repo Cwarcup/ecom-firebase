@@ -19,18 +19,18 @@
     }
   },
   "rules": {
-    // "arrow-body-style": "off",
-    // "prefer-arrow-callback": "off",
-    // "no-var": "error",
-    // "no-console": "off",
-    // "no-unused-vars": "warn",
-    // "func-call-spacing": ["error", "never"],
-    // "no-trailing-spaces": ["error", { "skipBlankLines": true }],
-    // "space-infix-ops": "error",
-    // "eqeqeq": "error",
-    // "func-style": "off",
-    // "brace-style": "error",
-    // "func-names": ["error", "never"],
-    // "react/prop-types": 0
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
+    "no-var": "error",
+    "no-console": "off",
+    "no-unused-vars": "warn",
+    "func-call-spacing": ["error", "never"],
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+    "space-infix-ops": "error",
+    "eqeqeq": "error",
+    "func-style": "off",
+    "brace-style": "error",
+    "func-names": ["error", "never"],
+    "react/prop-types": 0
   }
 }
