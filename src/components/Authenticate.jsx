@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
-import { setUser } from '../store/user/userSlice'
+import { setUser } from '../redux/slices/userSlice'
 
 const Authenticate = () => {
   // form fields

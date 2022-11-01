@@ -2,7 +2,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import CategoryPage from './CategoryPage'
 import { useEffect } from 'react'
 import { getCategoriesAndDocuments } from '../utils/firebase/firebaseUtils'
-import { setCategoriesMap } from '../store/categories/categoryAction'
+import { setCategoriesMap } from '../redux/slices/categoriesSlice'
 import { useDispatch } from 'react-redux'
 
 // components displays the categories in the database

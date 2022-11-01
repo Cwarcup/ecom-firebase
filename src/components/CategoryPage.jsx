@@ -3,12 +3,11 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import capitalizeFirstLetter from '../utils/capitalizeFirstLetter'
 import ProductCard from '../components/ProductCard'
-import { selectCategoriesMap } from '../store/categories/categorySelector'
 import { useSelector } from 'react-redux'
 
 // shows the list of items for a category
 const CategoryPage = () => {
-  const categoriesMap = useSelector(selectCategoriesMap)
+  const categoriesMap = useSelector((state) => state.categories.categoriesMap)
   const { category } = useParams()
 
   const [products, setProducts] = useState([])

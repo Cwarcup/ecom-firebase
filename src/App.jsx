@@ -13,12 +13,10 @@ import {
 } from './utils/firebase/firebaseUtils'
 // import { setCurrentUser } from './store/user/userAction'
 
-
-import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from './store/user/userSlice'
+import { useDispatch } from 'react-redux'
+import { setUser } from './redux/slices/userSlice'
 function App() {
   const dispatch = useDispatch() // NEW
-  const currentUser = useSelector((state) => state.user.currentUser)
 
   useEffect(() => {
     // onAuthStateChangedListener() is a function that returns an unsubscribe function
