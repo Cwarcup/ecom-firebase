@@ -1,18 +1,15 @@
-import {
-  auth,
-  createUserDocumentFromAuth,
-  signInWithGoogleRedirect,
-  signInAuthUserWithEmailAndPassword,
-} from '../utils/firebase/firebaseUtils'
+import { signInWithGoogleRedirect } from '../utils/firebase/firebaseUtils'
 import { useEffect, useState } from 'react'
-import { getRedirectResult } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
-import { setUser } from '../redux/slices/userSlice'
+import { useDispatch } from 'react-redux'
+import { signInUser, signInGoogleRedirect } from '../redux/slices/userSlice'
 
 const Authenticate = () => {
+  const dispatch = useDispatch()
+
   // form fields
   // set the initial state of the form
   const defaultFormFields = {
@@ -28,20 +25,13 @@ const Authenticate = () => {
   //!! handles the google sign in redirect
   useEffect(() => {
     const handleRedirectResult = async () => {
-      // get the redirect result from the signInWithGoogleRedirect() function
-      const response = await getRedirectResult(auth)
-
-      if (response) {
-        // create a user document in the firestore database
-        createUserDocumentFromAuth(response.user)
-        // set the current user in the UserContext
-        setUser(response.user)
-      }
+      dispatch(signInGoogleRedirect())
     }
 
     handleRedirectResult()
   }, [])
 
+  // used to send user to google login page
   const signInGoogleRedirectUser = async () => {
     await signInWithGoogleRedirect()
   }
@@ -59,32 +49,31 @@ const Authenticate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password)
+    const response = await dispatch(signInUser({ email, password }))
 
-      if (response) {
-        resetFormFields()
-      }
-    } catch (error) {
-      console.error(error)
+    if (response.payload) {
+      resetFormFields()
+    }
 
-      switch (error.code) {
-        case 'auth/user-not-found':
-          setErrorText('No existing user found with that email address')
-          setTimeout(() => {
-            setErrorText(null)
-          }, 3000)
+    switch (response.error.code) {
+      case 'auth/user-not-found':
+        setErrorText('User not found')
+        setTimeout(() => {
+          setErrorText(null)
+        }, 3000)
 
-          break
-        case 'auth/wrong-password':
-          setErrorText('Incorrect password')
-          setTimeout(() => {
-            setErrorText(null)
-          }, 3000)
-          break
-        default:
-          setErrorText('Something went wrong')
-      }
+        break
+      case 'auth/wrong-password':
+        setErrorText('Incorrect password')
+        setTimeout(() => {
+          setErrorText(null)
+        }, 3000)
+        break
+      default:
+        setErrorText('Something went wrong')
+        setTimeout(() => {
+          setErrorText(null)
+        }, 3000)
     }
   }
 
