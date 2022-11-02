@@ -1,19 +1,12 @@
 import { Outlet, Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { FaCouch } from 'react-icons/fa'
-import { useContext } from 'react'
 import { signOutUser } from '../utils/firebase/firebaseUtils'
-import { CartContext } from '../context/CartContext'
-// import { selectCurrentUser } from '../store/user/userSelector'
-
-// use the outlet component to render the child components of the Nav component
+import { useSelector } from 'react-redux'
 
 const Nav = () => {
   const currentUser = useSelector((state) => state.user.currentUser)
 
-  // const { currentUser } = useContext(UserContext)
-
-  const { cartCount } = useContext(CartContext)
+  const { cartCount } = useSelector((state) => state.cart)
 
   return (
     <>

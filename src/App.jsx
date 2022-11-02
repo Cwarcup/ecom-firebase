@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-// import { useDispatch } from 'react-redux' // NEW
 import { Routes, Route } from 'react-router-dom'
 import Home from './components/Home'
 import Nav from './components/Nav'
@@ -11,12 +10,11 @@ import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
 } from './utils/firebase/firebaseUtils'
-// import { setCurrentUser } from './store/user/userAction'
 
 import { useDispatch } from 'react-redux'
 import { setUser } from './redux/slices/userSlice'
 function App() {
-  const dispatch = useDispatch() // NEW
+  const dispatch = useDispatch()
 
   useEffect(() => {
     // onAuthStateChangedListener() is a function that returns an unsubscribe function
@@ -24,11 +22,12 @@ function App() {
       if (user) {
         createUserDocumentFromAuth(user)
       }
-      dispatch(setUser(user)) // NEW
+      dispatch(setUser(user))
     })
 
     return unsubscribe // unsubscribe from the listener when the component unmounts
   }, [])
+
   return (
     <Routes>
       <Route path='/' element={<Nav />}>

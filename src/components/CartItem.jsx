@@ -1,13 +1,22 @@
 //!! use in the cart checkout page - Cart.jsx
-import { useContext } from 'react'
-import { CartContext } from '../context/CartContext'
-// accepts a version of the product data
-const CartItem = ({ cartItem }) => {
-  const { addItemToCart, removeItemFromCart, clearItemFromCart } = useContext(CartContext)
 
-  // handlers for adding/removing items from cart
-  const addProductToCart = () => addItemToCart(cartItem)
-  const removeProductFromCart = () => removeItemFromCart(cartItem)
+import { useDispatch } from 'react-redux'
+import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../redux/slices/cartSlice.js'
+
+const CartItem = ({ cartItem }) => {
+  const dispatch = useDispatch()
+
+  const handleRemoveCartItem = () => {
+    dispatch(removeItemFromCart(cartItem))
+  }
+
+  const handleAddCartItem = () => {
+    dispatch(addItemToCart(cartItem))
+  }
+
+  const handleClearCartItem = () => {
+    dispatch(clearItemFromCart(cartItem))
+  }
 
   return (
     <li className='flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0 hover:shadow-lg'>
@@ -34,7 +43,7 @@ const CartItem = ({ cartItem }) => {
               <div className='mx-auto flex h-8 items-stretch text-gray-600'>
                 <button
                   className='flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'
-                  onClick={removeProductFromCart}
+                  onClick={handleRemoveCartItem}
                 >
                   -
                 </button>
@@ -43,7 +52,7 @@ const CartItem = ({ cartItem }) => {
                 </div>
                 <button
                   className='flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'
-                  onClick={addProductToCart}
+                  onClick={handleAddCartItem}
                 >
                   +
                 </button>
@@ -56,7 +65,7 @@ const CartItem = ({ cartItem }) => {
           <button
             type='button'
             className='flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900'
-            onClick={() => clearItemFromCart(cartItem)}
+            onClick={handleClearCartItem}
           >
             <svg
               className='h-5 w-5'

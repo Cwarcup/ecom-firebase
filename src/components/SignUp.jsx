@@ -6,7 +6,6 @@ import {
 } from '../utils/firebase/firebaseUtils'
 import FormInput from './FormInput'
 import Button from './Button'
-// import { UserContext } from '../context/UserContext'
 import AlertBox from './AlertBox'
 
 const SignUp = () => {

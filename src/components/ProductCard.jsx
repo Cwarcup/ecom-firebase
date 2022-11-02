@@ -1,12 +1,11 @@
-import { useContext } from 'react'
-import { CartContext } from '../context/CartContext'
+import { useDispatch } from 'react-redux'
+import { addItemToCart } from '../redux/slices/cartSlice.js'
 
 const ProductCard = ({ product }) => {
-  const { addItemToCart } = useContext(CartContext)
+  const dispatch = useDispatch()
 
-  // handlers for adding/removing items from cart
-  const addProductToCart = () => {
-    addItemToCart(product)
+  const handleAddItemToCart = () => {
+    dispatch(addItemToCart(product))
   }
 
   return (
@@ -45,7 +44,7 @@ const ProductCard = ({ product }) => {
         </div>
         <button
           className='flex items-center justify-center bg-gray-900 px-2 py-1 text-sm text-white transition hover:bg-gray-700'
-          onClick={addProductToCart}
+          onClick={handleAddItemToCart}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

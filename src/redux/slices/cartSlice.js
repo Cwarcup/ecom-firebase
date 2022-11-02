@@ -9,7 +9,6 @@ const initialState = {
 // !! cart helper functions
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find((cartItem) => cartItem.id === productToAdd.id)
-
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
       cartItem.id === productToAdd.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
@@ -46,12 +45,27 @@ export const cartSlice = createSlice({
   reducers: {
     addItemToCart: (state, action) => {
       state.cartItems = addCartItem(state.cartItems, action.payload)
+      state.cartCount = state.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
+      state.cartTotal = state.cartItems.reduce(
+        (acc, cartItem) => acc + cartItem.quantity * cartItem.price,
+        0,
+      )
     },
     removeItemFromCart: (state, action) => {
       state.cartItems = removeCartItem(state.cartItems, action.payload)
+      state.cartCount = state.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
+      state.cartTotal = state.cartItems.reduce(
+        (acc, cartItem) => acc + cartItem.quantity * cartItem.price,
+        0,
+      )
     },
     clearItemFromCart: (state, action) => {
       state.cartItems = clearCartItem(state.cartItems, action.payload)
+      state.cartCount = state.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
+      state.cartTotal = state.cartItems.reduce(
+        (acc, cartItem) => acc + cartItem.quantity * cartItem.price,
+        0,
+      )
     },
   },
 })

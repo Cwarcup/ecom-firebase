@@ -1,10 +1,8 @@
 import CartItem from './CartItem'
-import { useContext } from 'react'
-import { CartContext } from '../context/CartContext'
+import { useSelector } from 'react-redux'
 
 const Cart = () => {
-  // get cartItems from context
-  const { cartItems, cartTotal } = useContext(CartContext)
+  const { cartItems, cartTotal } = useSelector((state) => state.cart)
 
   return (
     <section className='h-screen py-12 sm:py-16 lg:py-20'>
