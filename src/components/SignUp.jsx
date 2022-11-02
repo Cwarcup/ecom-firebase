@@ -7,8 +7,12 @@ import {
 import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
+import { useDispatch } from 'react-redux'
+import { signUpUser, signInUser } from '../redux/slices/userSlice.js'
 
 const SignUp = () => {
+  const dispatch = useDispatch()
+
   // set the initial state of the form
   const defaultFormFields = {
     displayName: '',
@@ -32,36 +36,16 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    try {
-      const response = await createAuthUserWithEmailAndPassword(email, password)
+    // use the signUpUser action creator to sign up the user
+    const response = await dispatch(signUpUser({ displayName, email, password }))
 
-      if (response) {
-        // create a user document in the firestore database
-        // also pass the displayName from the form. This is passed as an additionalInformationObj to the createUserDocumentFromAuth() function
-        await createUserDocumentFromAuth(response.user, { displayName })
-        resetFormFields()
-      }
-    } catch (error) {
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          setErrorText('Email already in use')
-          break
-        case 'auth/invalid-email':
-          setErrorText('Invalid email')
-          break
-        case 'auth/weak-password':
-          setErrorText('Password is too weak')
-          break
-        default:
-          setErrorText('Something went wrong')
-      }
-
-      setTimeout(() => {
-        setErrorText(null)
-      }, 3000)
-
-      console.error(error)
+    // if the response is an error, set the error text
+    if (response.error) {
+      setErrorText(response.error.message)
     }
+
+    // reset the form fields
+    resetFormFields()
   }
 
   return (

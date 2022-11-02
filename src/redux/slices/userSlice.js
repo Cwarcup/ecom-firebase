@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import {
   auth,
-  // createUserDocumentFromAuth,
+  createUserDocumentFromAuth,
+  createAuthUserWithEmailAndPassword,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebaseUtils'
 import { getRedirectResult } from 'firebase/auth'
@@ -20,6 +21,19 @@ export const signInGoogleRedirect = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error)
     }
+  },
+)
+
+// sign up user with email and password
+export const signUpUser = createAsyncThunk(
+  'user/signUpUser',
+  async ({ email, password, displayName }) => {
+    const response = await createAuthUserWithEmailAndPassword(email, password)
+
+    // create user document in firestore database
+    await createUserDocumentFromAuth(response.user, { displayName })
+
+    return response
   },
 )
 
@@ -48,6 +62,13 @@ export const userSlice = createSlice({
       state.currentUser = action.payload
     })
     builder.addCase(signInGoogleRedirect.rejected, (state, action) => {
+      state.currentUser = null
+      state.error = action.payload
+    })
+    builder.addCase(signUpUser.fulfilled, (state, action) => {
+      state.currentUser = action.payload
+    })
+    builder.addCase(signUpUser.rejected, (state, action) => {
       state.currentUser = null
       state.error = action.payload
     })
