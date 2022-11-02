@@ -1,14 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from '../utils/firebase/firebaseUtils'
+
 import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
 import { useDispatch } from 'react-redux'
-import { signUpUser, signInUser } from '../redux/slices/userSlice.js'
+import { signUpUser } from '../redux/slices/userSlice.js'
 
 const SignUp = () => {
   const dispatch = useDispatch()
