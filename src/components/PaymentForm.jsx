@@ -1,20 +1,48 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { useSelector } from 'react-redux'
 
 const PaymentForm = () => {
   const stripe = useStripe()
   const elements = useElements()
 
+  const { cartTotal } = useSelector((state) => state.cart)
+  const { currentUser } = useSelector((state) => state.user)
+
   const paymentHandler = async (e) => {
     e.preventDefault()
 
     if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
       return
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
+    const result = await fetch('/.netlify/functions/create-payment-intent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount: cartTotal }),
+    }).then((res) => res.json())
+
+    const clientSecret = result.paymentIntent.client_secret
+
+    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: currentUser.displayName,
+        },
+      },
     })
+
+    if (paymentResult.error) {
+      alert(paymentResult.error)
+    } else {
+      if (paymentResult.paymentIntent.status === 'succeeded') {
+        alert('Payment successful!')
+      }
+    }
   }
 
   return (
