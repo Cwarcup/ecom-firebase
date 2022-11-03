@@ -5,6 +5,7 @@ import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
 import { useDispatch } from 'react-redux'
+// use signUpUser action creator to sign up the user
 import { signUpUser } from '../redux/slices/userSlice.js'
 
 const SignUp = () => {
@@ -21,6 +22,8 @@ const SignUp = () => {
   const { displayName, email, password } = formFields
   const [errorText, setErrorText] = useState(null)
 
+  const [data, setData] = useState({})
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
   }
@@ -30,18 +33,17 @@ const SignUp = () => {
     setFormFields({ ...formFields, [name]: value })
   }
 
-  const handleSubmit = async (e) => {
+  // async function that dispatches the signUpUser action
+  // if the response has a payload, set the errorText state to the error message
+  const handleSignUp = async (e) => {
     e.preventDefault()
 
-    // use the signUpUser action creator to sign up the user
     const response = await dispatch(signUpUser({ displayName, email, password }))
 
-    // if the response is an error, set the error text
     if (response.error) {
       setErrorText(response.error.message)
     }
 
-    // reset the form fields
     resetFormFields()
   }
 
@@ -61,7 +63,7 @@ const SignUp = () => {
             <p className='mt-2 mb-5 text-base leading-tight text-gray-600'>
               Create an account to get started.
             </p>
-            <form className='mt-8' onSubmit={(e) => handleSubmit(e)}>
+            <form className='mt-8' onSubmit={handleSignUp}>
               <FormInput
                 label='Display Name'
                 onChange={(e) => handleChange(e)}
@@ -103,6 +105,7 @@ const SignUp = () => {
                   Sign in
                 </Link>
               </p>
+              <p>{console.log(data)}</p>
             </div>
           </div>
         </div>

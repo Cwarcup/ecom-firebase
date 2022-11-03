@@ -80,38 +80,24 @@ This is very different from the way we were doing things before. When we updated
   - [x] useContext
   - [x] useEffect 
 
-
-
-
-
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-
-  //   const response = await dispatch(signInUser({ email, password }))
-
-  //   if (response.payload) {
-  //     resetFormFields()
-  //   }
-
-  //   switch (response.error.code) {
-  //     case 'auth/user-not-found':
-  //       setErrorText('User not found')
-  //       setTimeout(() => {
-  //         setErrorText(null)
-  //       }, 3000)
-
-  //       break
-  //     case 'auth/wrong-password':
-  //       setErrorText('Incorrect password')
-  //       setTimeout(() => {
-  //         setErrorText(null)
-  //       }, 3000)
-  //       break
-  //     default:
-  //       setErrorText('Something went wrong')
-  //       setTimeout(() => {
-  //         setErrorText(null)
-  //       }, 3000)
-  //   }
-  // }
+{
+    "type": "user/signUpUser/rejected",
+    "meta": {
+        "arg": {
+            "displayName": "sdsdf",
+            "email": "curtis.gwarcup@gmail.com",
+            "password": "123123123"
+        },
+        "requestId": "ObzLzu7NmfFd-V1zN1nG5",
+        "rejectedWithValue": false,
+        "requestStatus": "rejected",
+        "aborted": false,
+        "condition": false
+    },
+    "error": {
+        "name": "FirebaseError",
+        "message": "Firebase: Error (auth/email-already-in-use).",
+        "stack": "FirebaseError: Firebase: Error (auth/email-already-in-use).\n    at createErrorInternal (http://localhost:3000/static/js/bundle.js:3882:37)\n    at _createError (http://localhost:3000/static/js/bundle.js:3851:10)\n    at _makeTaggedError (http://localhost:3000/static/js/bundle.js:4459:17)\n    at _performFetchWithErrorHandling (http://localhost:3000/static/js/bundle.js:4396:15)\n    at async _performSignInRequest (http://localhost:3000/static/js/bundle.js:4417:26)\n    at async createUserWithEmailAndPassword (http://localhost:3000/static/js/bundle.js:8595:20)\n    at async createAuthUserWithEmailAndPassword (http://localhost:3000/static/js/bundle.js:3278:10)\n    at async http://localhost:3000/static/js/bundle.js:2926:20",
+        "code": "auth/email-already-in-use"
+    }
+}
