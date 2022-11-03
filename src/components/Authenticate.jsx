@@ -52,35 +52,17 @@ const Authenticate = () => {
     setFormFields({ ...formFields, [name]: value })
   }
 
-  const handleSubmit = async (e) => {
+  // handles the sign in with email and password
+  // async function that dispatches the signInUser action
+  const handleEmailPasswordSignIn = async (e) => {
     e.preventDefault()
 
     const response = await dispatch(signInUser({ email, password }))
-
     if (response.payload) {
-      resetFormFields()
+      setErrorText(response.payload.message)
     }
 
-    switch (response.error.code) {
-      case 'auth/user-not-found':
-        setErrorText('User not found')
-        setTimeout(() => {
-          setErrorText(null)
-        }, 3000)
-
-        break
-      case 'auth/wrong-password':
-        setErrorText('Incorrect password')
-        setTimeout(() => {
-          setErrorText(null)
-        }, 3000)
-        break
-      default:
-        setErrorText('Something went wrong')
-        setTimeout(() => {
-          setErrorText(null)
-        }, 3000)
-    }
+    resetFormFields()
   }
 
   return (
@@ -101,7 +83,7 @@ const Authenticate = () => {
               or
             </div>
           </div>
-          <form className='flex flex-col pt-3 md:pt-8' onSubmit={(e) => handleSubmit(e)}>
+          <form className='flex flex-col pt-3 md:pt-8' onSubmit={handleEmailPasswordSignIn}>
             <div className='flex flex-col pt-4'>
               <FormInput
                 label='Email'

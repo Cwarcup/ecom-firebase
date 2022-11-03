@@ -79,3 +79,39 @@ This is very different from the way we were doing things before. When we updated
   - [x] useState
   - [x] useContext
   - [x] useEffect 
+
+
+
+
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+
+  //   const response = await dispatch(signInUser({ email, password }))
+
+  //   if (response.payload) {
+  //     resetFormFields()
+  //   }
+
+  //   switch (response.error.code) {
+  //     case 'auth/user-not-found':
+  //       setErrorText('User not found')
+  //       setTimeout(() => {
+  //         setErrorText(null)
+  //       }, 3000)
+
+  //       break
+  //     case 'auth/wrong-password':
+  //       setErrorText('Incorrect password')
+  //       setTimeout(() => {
+  //         setErrorText(null)
+  //       }, 3000)
+  //       break
+  //     default:
+  //       setErrorText('Something went wrong')
+  //       setTimeout(() => {
+  //         setErrorText(null)
+  //       }, 3000)
+  //   }
+  // }
