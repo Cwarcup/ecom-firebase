@@ -7,11 +7,13 @@ import {
 } from '../../utils/firebase/firebaseUtils'
 import { getRedirectResult } from 'firebase/auth'
 
+// async function used to sign in user with email and password
 export const signInUser = createAsyncThunk('user/signInUser', async ({ email, password }) => {
   const response = await signInAuthUserWithEmailAndPassword(email, password)
   return response
 })
 
+// async function used to sign in user with google redirect method
 export const signInGoogleRedirect = createAsyncThunk(
   'user/signInGoogleRedirect',
   async (_, { rejectWithValue }) => {
@@ -25,6 +27,8 @@ export const signInGoogleRedirect = createAsyncThunk(
 )
 
 // sign up user with email and password
+// must create the user document in firestore, returning the auth user
+// and then sign in the using the auth user returned from the createUserDocumentFromAuth function
 export const signUpUser = createAsyncThunk(
   'user/signUpUser',
   async ({ email, password, displayName }) => {
@@ -39,6 +43,7 @@ export const signUpUser = createAsyncThunk(
 
 const initialState = {
   currentUser: null,
+  status: 'idle',
   error: null,
 }
 
@@ -49,32 +54,47 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.currentUser = action.payload
     },
+    signOutUser: (state) => {
+      state.currentUser = null
+    },
   },
-  extraReducers: (builder) => {
-    builder.addCase(signInUser.fulfilled, (state, action) => {
+  extraReducers: {
+    [signInUser.pending]: (state) => {
+      state.status = 'loading'
+    },
+    [signInUser.fulfilled]: (state, action) => {
+      state.status = 'succeeded'
       state.currentUser = action.payload
-    })
-    builder.addCase(signInUser.rejected, (state, action) => {
-      state.currentUser = null
+    },
+    [signInUser.rejected]: (state, action) => {
+      state.status = 'failed'
       state.error = action.payload
-    })
-    builder.addCase(signInGoogleRedirect.fulfilled, (state, action) => {
+    },
+    [signInGoogleRedirect.pending]: (state) => {
+      state.status = 'loading'
+    },
+    [signInGoogleRedirect.fulfilled]: (state, action) => {
+      state.status = 'succeeded'
       state.currentUser = action.payload
-    })
-    builder.addCase(signInGoogleRedirect.rejected, (state, action) => {
-      state.currentUser = null
+    },
+    [signInGoogleRedirect.rejected]: (state, action) => {
+      state.status = 'failed'
       state.error = action.payload
-    })
-    builder.addCase(signUpUser.fulfilled, (state, action) => {
+    },
+    [signUpUser.pending]: (state) => {
+      state.status = 'loading'
+    },
+    [signUpUser.fulfilled]: (state, action) => {
+      state.status = 'succeeded'
       state.currentUser = action.payload
-    })
-    builder.addCase(signUpUser.rejected, (state, action) => {
-      state.currentUser = null
+    },
+    [signUpUser.rejected]: (state, action) => {
+      state.status = 'failed'
       state.error = action.payload
-    })
+    },
   },
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser, signOutUser } = userSlice.actions
 
 export default userSlice.reducer

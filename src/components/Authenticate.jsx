@@ -5,6 +5,8 @@ import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
 import { useDispatch } from 'react-redux'
+
+// import the two methods of sign in from redux userSlice
 import { signInUser, signInGoogleRedirect } from '../redux/slices/userSlice'
 
 const Authenticate = () => {
@@ -23,17 +25,21 @@ const Authenticate = () => {
   const [errorText, setErrorText] = useState(null)
 
   //!! handles the google sign in redirect
+  // is an async function that dispatches the signInGoogleRedirect action
   useEffect(() => {
-    const handleRedirectResult = async () => {
-      dispatch(signInGoogleRedirect())
+    const handleGoogleSignIn = async () => {
+      const response = await dispatch(signInGoogleRedirect())
+      if (response.payload) {
+        setErrorText(response.payload.message)
+      }
     }
 
-    handleRedirectResult()
+    handleGoogleSignIn()
   }, [])
 
   // used to send user to google login page
-  const signInGoogleRedirectUser = async () => {
-    await signInWithGoogleRedirect()
+  const handleGoogleSignIn = () => {
+    signInWithGoogleRedirect()
   }
   //!! end of google sign in redirect
 
@@ -85,7 +91,7 @@ const Authenticate = () => {
           <p className='mt-2 text-left text-gray-500'>Welcome back, please enter your details.</p>
           <button
             className='-2 mt-8 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-secondary ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-blue-400 bg-secondary text-white hover:text-base-100'
-            onClick={signInGoogleRedirectUser}
+            onClick={handleGoogleSignIn}
           >
             <img className='mr-2 h-5' src='https://static.cdnlogo.com/logos/g/35/google-icon.svg' />{' '}
             Log in with Google
