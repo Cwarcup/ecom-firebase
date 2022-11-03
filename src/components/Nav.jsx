@@ -10,7 +10,7 @@ const Nav = () => {
 
   return (
     <>
-      <header className='mb-2 px-4 shadow'>
+      <header className='mb-2 px-4 shadow bg-white'>
         <div className='relative mx-auto flex max-w-screen-lg flex-col py-4 sm:flex-row sm:items-center sm:justify-between'>
           <Link className='flex items-center text-2xl font-black' to='/'>
             <span className='mr-2 text-3xl text-secondary'>

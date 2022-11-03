@@ -105,7 +105,6 @@ const SignUp = () => {
                   Sign in
                 </Link>
               </p>
-              <p>{console.log(data)}</p>
             </div>
           </div>
         </div>
