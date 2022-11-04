@@ -6,7 +6,7 @@
     "mocha": true,
     "browser": true
   },
-  "plugins": ["react"],
+  "plugins": ["react", "@typescript-eslint"],
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime"],
   "parserOptions": {
     "sourceType": "module",
@@ -23,7 +23,6 @@
     "prefer-arrow-callback": "off",
     "no-var": "error",
     "no-console": "off",
-    "no-unused-vars": "warn",
     "func-call-spacing": ["error", "never"],
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "space-infix-ops": "error",
@@ -31,6 +30,7 @@
     "func-style": "off",
     "brace-style": "error",
     "func-names": ["error", "never"],
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "no-undef": "off"
   }
 }

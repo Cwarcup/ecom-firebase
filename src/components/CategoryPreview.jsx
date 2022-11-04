@@ -26,6 +26,8 @@ const CategoryPreview = () => {
         return acc
       }, {})
 
+      console.log({ fixedCategoryData })
+
       dispatch(setCategoriesMap(fixedCategoryData))
     }
 
