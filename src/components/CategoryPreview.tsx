@@ -7,9 +7,19 @@ import { useDispatch } from 'react-redux'
 
 // components displays the categories in the database
 
+// type for the categories from the database
+type CategoryType = {
+  name: string
+  id: number
+  imageUrl: string
+  price: number
+}
+
 // displays the categories in the database as links
 // accessed at /shop
 const CategoryPreview = () => {
+  // !! save commented out code. it's useful for reference but not used.
+  // !! using hard coded categories for now, db doesn't have any categories data
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -19,16 +29,17 @@ const CategoryPreview = () => {
       // used to filter out the categories that are not in the CATEGORIES_KEYS array
       const CATEGORIES_KEYS = ['jackets', 'mens', 'sneakers', 'womens', 'hats']
 
-      const fixedCategoryData = Object.keys(categoryMap).reduce((acc, key) => {
-        if (CATEGORIES_KEYS.includes(key)) {
-          acc[key] = categoryMap[key]
-        }
-        return acc
-      }, {})
+      // return the objects that have a key that is in the CATEGORIES_KEYS array
+      const filteredCategoryMap = Object.keys(categoryMap)
+        .filter((key) => CATEGORIES_KEYS.includes(key))
+        .reduce((obj: any, key: any) => {
+          const newObj = { ...obj, [key]: categoryMap[key] }
+          return newObj
+        }, {})
 
-      console.log({ fixedCategoryData })
+      console.log({ filteredCategoryMap })
 
-      dispatch(setCategoriesMap(fixedCategoryData))
+      dispatch(setCategoriesMap(filteredCategoryMap))
     }
 
     fetchProducts()

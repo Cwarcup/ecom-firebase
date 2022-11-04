@@ -2,31 +2,35 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import capitalizeFirstLetter from '../utils/capitalizeFirstLetter'
-import ProductCard from '../components/ProductCard'
+import ProductCard from './ProductCard'
 import { useSelector } from 'react-redux'
+import { selectCategoriesMap } from '../redux/slices/categoriesSlice'
 
-// shows the list of items for a category
 const CategoryPage = () => {
-  const categoriesMap = useSelector((state) => state.categories.categoriesMap)
   const { category } = useParams()
 
-  const [products, setProducts] = useState([])
+  const categoriesMap = useSelector(selectCategoriesMap)
+
+  const [categoryItems, setCategoryItems] = useState([])
 
   useEffect(() => {
-    setProducts(categoriesMap[category])
-  }, [category, categoriesMap])
+    if (categoriesMap) {
+      const categoryItems = categoriesMap[category]
+      setCategoryItems(categoryItems)
+    }
+  }, [categoriesMap, category])
 
   return (
     <div className='mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
       <h2 className='text-2xl font-bold tracking-tight text-gray-900'>
         {capitalizeFirstLetter(category)} Collection
       </h2>
-
       <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
-        {products?.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {categoryItems &&
+          categoryItems.map((item, index) => <ProductCard key={item.id} product={item} />)}
       </div>
+
+      <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'></div>
     </div>
   )
 }

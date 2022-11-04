@@ -2,11 +2,12 @@ import { Outlet, Link } from 'react-router-dom'
 import { FaCouch } from 'react-icons/fa'
 import { signOutUser } from '../utils/firebase/firebaseUtils'
 import { useSelector } from 'react-redux'
+import { currentUserSelector } from '../redux/slices/userSlice'
+import { selectCartCount } from '../redux/slices/cartSlice'
 
 const Nav = () => {
-  const currentUser = useSelector((state) => state.user.currentUser)
-
-  const { cartCount } = useSelector((state) => state.cart)
+  const currentUser = useSelector(currentUserSelector)
+  const cartCount = useSelector(selectCartCount)
 
   return (
     <>

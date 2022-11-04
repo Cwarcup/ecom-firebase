@@ -1,7 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const CtaCard = ({ category }) => {
+type CtaCardProps = {
+  category: {
+    title: string
+    description: string
+    imageUrl: string
+  }
+}
+
+const CtaCard = ({ category }: CtaCardProps) => {
   return (
     <div className='flex flex-col items-center justify-center w-full bg-white'>
       <div className='m-10 mx-4 max-w-screen-lg overflow-hidden rounded-xl border shadow-lg md:pl-8'>

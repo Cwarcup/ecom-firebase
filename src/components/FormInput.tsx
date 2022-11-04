@@ -1,4 +1,15 @@
-const FormInput = ({ label, ...otherProps }) => {
+type FormInputProps = {
+  label: string
+  otherProps: {
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    value: string
+    name: string
+    type: string
+    required: boolean
+  }
+}
+
+const FormInput = ({ label, ...otherProps }: FormInputProps) => {
   return (
     <div className='relative mt-2 w-full'>
       <input

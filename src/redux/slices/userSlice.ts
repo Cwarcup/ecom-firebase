@@ -108,4 +108,7 @@ export const userSlice = createSlice({
 
 export const { setUser, signOutUser } = userSlice.actions
 
+export const currentUserSelector = (state: any) => state.user.currentUser
+export const userStatusSelector = (state: any) => state.user.status
+
 export default userSlice.reducer
