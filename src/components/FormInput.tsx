@@ -1,7 +1,8 @@
 type FormInputProps = {
   label: string
   otherProps: {
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    // onChange accepts a function that takes a React.ChangeEvent<HTMLInputElement> and returns void
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     value: string
     name: string
     type: string

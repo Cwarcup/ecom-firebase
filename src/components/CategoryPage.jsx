@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { selectCategoriesMap } from '../redux/slices/categoriesSlice'
 
 const CategoryPage = () => {
+  // TODO: category is 'undefined' according to typescript. Why?
   const { category } = useParams()
 
   const categoriesMap = useSelector(selectCategoriesMap)

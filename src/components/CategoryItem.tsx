@@ -1,5 +1,11 @@
-const CategoryItem = ({ category }) => {
-  const { title, imageUrl } = category
+import { CategoryType } from '../types/CategoryType'
+
+type CategoryItemProps = {
+  category: CategoryType
+}
+
+const CategoryItem = ({ category }: CategoryItemProps) => {
+  const { name, imageUrl } = category
   return (
     <>
       <article className='relative'>
@@ -15,7 +21,7 @@ const CategoryItem = ({ category }) => {
           <div className=''>
             <h3 className='text-xs font-semibold sm:text-sm md:text-base'>
               <a href='#' title='' className='cursor-pointer'>
-                {title}
+                {name}
               </a>
             </h3>
           </div>
