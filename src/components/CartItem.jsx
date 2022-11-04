@@ -1,7 +1,7 @@
 //!! use in the cart checkout page - Cart.jsx
 
 import { useDispatch } from 'react-redux'
-import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../redux/slices/cartSlice.js'
+import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../redux/slices/cartSlice'
 
 const CartItem = ({ cartItem }) => {
   const dispatch = useDispatch()

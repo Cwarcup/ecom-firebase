@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { addItemToCart } from '../redux/slices/cartSlice.js'
+import { addItemToCart } from '../redux/slices/cartSlice'
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch()

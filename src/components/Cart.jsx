@@ -1,9 +1,11 @@
 import CartItem from './CartItem'
 import { useSelector } from 'react-redux'
+import { selectCartItems, selectCartTotal } from '../redux/slices/cartSlice'
 import PaymentForm from './PaymentForm'
 
 const Cart = () => {
-  const { cartItems, cartTotal } = useSelector((state) => state.cart)
+  const cartItems = useSelector(selectCartItems)
+  const cartTotal = useSelector(selectCartTotal)
 
   return (
     <section className='h-screen py-12 sm:py-16 lg:py-20'>
