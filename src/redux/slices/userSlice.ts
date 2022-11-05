@@ -5,7 +5,7 @@ import {
   createAuthUserWithEmailAndPassword,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebaseUtils'
-import { getRedirectResult, User } from 'firebase/auth'
+import { getRedirectResult } from 'firebase/auth'
 import type { SignInFormFieldsType, SignUpFormFieldsType } from '../../types/userTypes'
 
 // async function used to sign in user with email and password

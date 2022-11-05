@@ -5,16 +5,14 @@ import capitalizeFirstLetter from '../utils/capitalizeFirstLetter'
 import ProductCard from './ProductCard'
 import { useSelector } from 'react-redux'
 import { selectCategoriesMap } from '../redux/slices/categoriesSlice'
+import type { CategoryItemType } from '../types/categoryTypes'
 
 const CategoryPage = () => {
-  // TODO: category is 'undefined' according to typescript. Why?
   const { category } = useParams()
 
   const categoriesMap = useSelector(selectCategoriesMap)
 
-  const [categoryItems, setCategoryItems] = useState([])
-
-  console.log({ category, categoryItems, categoriesMap })
+  const [categoryItems, setCategoryItems] = useState<CategoryItemType[]>([])
 
   // find the category in the categoriesMap
   useEffect(() => {
@@ -33,8 +31,7 @@ const CategoryPage = () => {
         {capitalizeFirstLetter(category)} Collection
       </h2>
       <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
-        {categoriesMap &&
-          categoryItems.map((item, index) => <ProductCard key={item.id} product={item} />)}
+        {categoriesMap && categoryItems.map((item) => <ProductCard key={item.id} product={item} />)}
       </div>
 
       <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'></div>
