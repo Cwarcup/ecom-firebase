@@ -26,6 +26,7 @@ import {
 } from 'firebase/firestore'
 
 import { Category } from '../../types/categoryTypes'
+import { ObjectToAdd, AdditionalInformation, UserData } from '../../types/firebaseTypes'
 
 // create an app instance based off the config
 const firebaseConfig = {
@@ -51,10 +52,6 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 
 // firestore - database
 export const db = getFirestore()
-
-export type ObjectToAdd = {
-  title: string
-}
 
 // adding a collection to firestore
 export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
@@ -98,15 +95,6 @@ export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
   })
 }
 
-export type AdditionalInformation = {
-  displayName?: string
-}
-
-export type UserData = {
-  createdAt: Date
-  displayName: string
-  email: string
-}
 // create or confirm a user document in the firestore database
 // pass the response.user object from the signInWithGooglePopup() function
 export const createUserDocumentFromAuth = async (
