@@ -14,12 +14,18 @@ const CategoryPage = () => {
 
   const [categoryItems, setCategoryItems] = useState([])
 
+  console.log({ category, categoryItems, categoriesMap })
+
+  // find the category in the categoriesMap
   useEffect(() => {
-    if (categoriesMap) {
-      const categoryItems = categoriesMap[category]
-      setCategoryItems(categoryItems)
+    // iterate over the categoriesMap object and create a new array of items with they key that matches the category
+    for (const [key, value] of Object.entries(categoriesMap)) {
+      console.log({ key, value })
+      if (value.title.toLowerCase() === category) {
+        setCategoryItems(value.items)
+      }
     }
-  }, [categoriesMap, category])
+  }, [category, categoriesMap])
 
   return (
     <div className='mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
@@ -27,7 +33,7 @@ const CategoryPage = () => {
         {capitalizeFirstLetter(category)} Collection
       </h2>
       <div className='mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
-        {categoryItems &&
+        {categoriesMap &&
           categoryItems.map((item, index) => <ProductCard key={item.id} product={item} />)}
       </div>
 

@@ -9,4 +9,10 @@ export interface CategoriesMapType {
   [key: string]: CategoryType
 }
 
+export type Category = {
+  title: string
+  imageUrl: string
+  items: CategoryType[]
+}
+
 export default CategoryType

@@ -8,12 +8,12 @@ import { useDispatch } from 'react-redux'
 // components displays the categories in the database
 
 // type for the categories from the database
-type CategoryType = {
-  name: string
-  id: number
-  imageUrl: string
-  price: number
-}
+// type CategoryType = {
+//   name: string
+//   id: number
+//   imageUrl: string
+//   price: number
+// }
 
 // displays the categories in the database as links
 // accessed at /shop
@@ -26,20 +26,7 @@ const CategoryPreview = () => {
     const fetchProducts = async () => {
       const categoryMap = await getCategoriesAndDocuments()
 
-      // used to filter out the categories that are not in the CATEGORIES_KEYS array
-      const CATEGORIES_KEYS = ['jackets', 'mens', 'sneakers', 'womens', 'hats']
-
-      // return the objects that have a key that is in the CATEGORIES_KEYS array
-      const filteredCategoryMap = Object.keys(categoryMap)
-        .filter((key) => CATEGORIES_KEYS.includes(key))
-        .reduce((obj: any, key: any) => {
-          const newObj = { ...obj, [key]: categoryMap[key] }
-          return newObj
-        }, {})
-
-      console.log({ filteredCategoryMap })
-
-      dispatch(setCategoriesMap(filteredCategoryMap))
+      dispatch(setCategoriesMap(categoryMap))
     }
 
     fetchProducts()

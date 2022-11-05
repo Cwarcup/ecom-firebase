@@ -38,8 +38,10 @@ export const signUpUser = createAsyncThunk(
   async ({ email, password, displayName }: SignUpFormFieldsType) => {
     const response = await createAuthUserWithEmailAndPassword(email, password)
 
+    if (response) {
+      await createUserDocumentFromAuth(response.user, { displayName })
+    }
     // create user document in firestore database
-    await createUserDocumentFromAuth(response?.user, { displayName })
 
     return response
   },
