@@ -7,6 +7,7 @@ import {
 } from '../../utils/firebase/firebaseUtils'
 import { getRedirectResult } from 'firebase/auth'
 import type { SignInFormFieldsType, SignUpFormFieldsType } from '../../types/userTypes'
+import type { RootState } from '../store'
 
 // async function used to sign in user with email and password
 
@@ -110,7 +111,7 @@ export const userSlice = createSlice({
 
 export const { setUser, signOutUser } = userSlice.actions
 
-export const currentUserSelector = (state: any) => state.user.currentUser
-export const userStatusSelector = (state: any) => state.user.status
+export const currentUserSelector = (state: RootState) => state.user.currentUser
+export const userStatusSelector = (state: RootState) => state.user.status
 
 export default userSlice.reducer

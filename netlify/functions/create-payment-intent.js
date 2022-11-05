@@ -5,8 +5,9 @@ const stripe = require('stripe')(process.env.STRIPE_API_KEY_PRIVATE)
 exports.handler = async (event) => {
   try {
     const { amount } = JSON.parse(event.body)
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
+      amount,
       currency: 'cad',
       payment_method_types: ['card'],
     })
@@ -16,9 +17,10 @@ exports.handler = async (event) => {
       body: JSON.stringify({ paymentIntent }),
     }
   } catch (error) {
-    console.log(error)
+    console.log({ error })
+
     return {
-      statusCode: 400,
+      status: 400,
       body: JSON.stringify({ error }),
     }
   }

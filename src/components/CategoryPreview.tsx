@@ -5,16 +5,6 @@ import { getCategoriesAndDocuments } from '../utils/firebase/firebaseUtils'
 import { setCategoriesMap } from '../redux/slices/categoriesSlice'
 import { useDispatch } from 'react-redux'
 
-// components displays the categories in the database
-
-// type for the categories from the database
-// type CategoryType = {
-//   name: string
-//   id: number
-//   imageUrl: string
-//   price: number
-// }
-
 // displays the categories in the database as links
 // accessed at /shop
 const CategoryPreview = () => {

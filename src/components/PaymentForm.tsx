@@ -1,17 +1,23 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { selectCartTotal } from '../redux/slices/cartSlice'
+import { currentUserSelector } from '../redux/slices/userSlice'
+import { StripeCardElement } from '@stripe/stripe-js'
+
+const ifValidCardElement = (card: StripeCardElement | null): card is StripeCardElement =>
+  card !== null
 
 const PaymentForm = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
 
   const stripe = useStripe()
   const elements = useElements()
 
-  const { cartTotal } = useSelector((state) => state.cart)
-  const { currentUser } = useSelector((state) => state.user)
+  const cartTotal = useSelector(selectCartTotal)
+  const currentUser = useSelector(currentUserSelector)
 
-  const paymentHandler = async (e) => {
+  const paymentHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!stripe || !elements) {
@@ -20,7 +26,7 @@ const PaymentForm = () => {
       return
     }
 
-    setIsLoading(true)
+    setIsProcessingPayment(true)
 
     const result = await fetch('/.netlify/functions/create-payment-intent', {
       method: 'POST',
@@ -30,22 +36,30 @@ const PaymentForm = () => {
       body: JSON.stringify({ amount: cartTotal }),
     }).then((res) => res.json())
 
-    const clientSecret = result.paymentIntent.client_secret
+    const {
+      paymentIntent: { client_secret },
+    } = result
 
-    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+    const cardDetails = elements.getElement(CardElement)
+
+    if (!ifValidCardElement(cardDetails)) return
+
+    const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
-        card: elements.getElement(CardElement),
+        card: cardDetails,
         billing_details: {
-          name: currentUser.displayName,
+          name: currentUser ? currentUser.displayName : 'Guest',
+          email: currentUser ? currentUser.email : 'guest@guest.com',
         },
       },
     })
+
+    setIsProcessingPayment(false)
 
     if (paymentResult.error) {
       alert(paymentResult.error)
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
-        setIsLoading(false)
         alert('Payment successful!')
       }
     }
@@ -78,7 +92,7 @@ const PaymentForm = () => {
           className='group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800 mt-5'
           disabled={!stripe || !elements}
         >
-          {isLoading ? (
+          {isProcessingPayment ? (
             <>
               Processing...
               <svg
