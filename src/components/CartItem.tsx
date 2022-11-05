@@ -2,10 +2,10 @@
 
 import { useDispatch } from 'react-redux'
 import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../redux/slices/cartSlice'
-import { ItemInCartType } from '../types/CartItemsType'
+import type { CartItemType } from '../types/cartTypes'
 
 type CartItemPropsType = {
-  cartItem: ItemInCartType
+  cartItem: CartItemType
 }
 
 const CartItem = ({ cartItem }: CartItemPropsType) => {

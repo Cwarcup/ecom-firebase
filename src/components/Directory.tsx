@@ -1,8 +1,8 @@
 import CategoryItem from './CategoryItem'
-import { CategoryType } from '../types/CategoryType'
+import type { CategoryItemType } from '../types/categoryTypes'
 
 type DirectoryProps = {
-  categories: CategoryType[]
+  categories: CategoryItemType[]
 }
 
 const Directory = ({ categories }: DirectoryProps) => {

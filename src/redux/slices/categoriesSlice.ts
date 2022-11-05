@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { CategoriesMapType } from '../../types/CategoryType'
+import type { Category } from '../../types/categoryTypes'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 
@@ -9,19 +9,19 @@ import type { RootState } from '../store'
 // each category object has a name, id, imageUrl, and price
 
 type CategoriesState = {
-  categoriesMap: CategoriesMapType
+  categoriesMap: Category[]
 }
 
 // initialState will be an empty object, but can also be CategoryType[]
 const initialState: CategoriesState = {
-  categoriesMap: {},
+  categoriesMap: [],
 }
 
 export const categoriesSlice = createSlice({
   name: 'categoriesMap',
   initialState,
   reducers: {
-    setCategoriesMap: (state, action: PayloadAction<CategoriesMapType>) => {
+    setCategoriesMap: (state, action: PayloadAction<Category[]>) => {
       state.categoriesMap = action.payload
     },
   },

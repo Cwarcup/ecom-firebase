@@ -1,4 +1,4 @@
-export type CategoryType = {
+export type CategoryItemType = {
   name: string
   id: number
   imageUrl: string
@@ -6,13 +6,11 @@ export type CategoryType = {
 }
 
 export interface CategoriesMapType {
-  [key: string]: CategoryType
+  [key: string]: CategoryItemType
 }
 
 export type Category = {
   title: string
   imageUrl: string
-  items: CategoryType[]
+  items: CategoryItemType[]
 }
-
-export default CategoryType

@@ -2,7 +2,7 @@ import CartItem from './CartItem'
 import { useSelector } from 'react-redux'
 import { selectCartItems, selectCartTotal } from '../redux/slices/cartSlice'
 import PaymentForm from './PaymentForm'
-import { ItemInCartType } from '../types/CartItemsType'
+import type { CartItemType } from '../types/cartTypes'
 
 const Cart = () => {
   const cartItems = useSelector(selectCartItems)
@@ -20,7 +20,7 @@ const Cart = () => {
             <div className='px-4 py-6 sm:px-8 sm:py-10'>
               <div className='flow-root'>
                 <ul className='-my-8'>
-                  {cartItems.map((item: ItemInCartType) => (
+                  {cartItems.map((item: CartItemType) => (
                     <CartItem key={item.id} cartItem={item} />
                   ))}
                 </ul>

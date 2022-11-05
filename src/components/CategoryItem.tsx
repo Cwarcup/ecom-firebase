@@ -1,7 +1,7 @@
-import { CategoryType } from '../types/CategoryType'
+import { CategoryItemType } from '../types/categoryTypes'
 
 type CategoryItemProps = {
-  category: CategoryType
+  category: CategoryItemType
 }
 
 const CategoryItem = ({ category }: CategoryItemProps) => {

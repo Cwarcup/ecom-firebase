@@ -25,7 +25,7 @@ import {
   QueryDocumentSnapshot,
 } from 'firebase/firestore'
 
-import { Category } from '../../types/CategoryType'
+import { Category } from '../../types/categoryTypes'
 
 // create an app instance based off the config
 const firebaseConfig = {
