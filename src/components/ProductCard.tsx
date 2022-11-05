@@ -1,7 +1,17 @@
 import { useDispatch } from 'react-redux'
 import { addItemToCart } from '../redux/slices/cartSlice'
 
-const ProductCard = ({ product }) => {
+type ProductCardProps = {
+  product: {
+    id: number
+    name: string
+    price: number
+    imageUrl: string
+  }
+}
+
+const ProductCard = ({ product }: ProductCardProps) => {
+  console.log({ product })
   const dispatch = useDispatch()
 
   const handleAddItemToCart = () => {

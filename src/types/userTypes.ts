@@ -6,6 +6,5 @@ export type SignInFormFieldsType = {
 export type SignUpFormFieldsType = {
   email: string
   password: string
-  displayName?: string
+  displayName: string
 }
-

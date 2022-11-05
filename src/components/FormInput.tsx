@@ -1,16 +1,8 @@
-type FormInputProps = {
-  label: string
-  otherProps: {
-    // onChange accepts a function that takes a React.ChangeEvent<HTMLInputElement> and returns void
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    value: string
-    name: string
-    type: string
-    required: boolean
-  }
-}
+import { InputHTMLAttributes, FC } from 'react'
 
-const FormInput = ({ label, ...otherProps }: FormInputProps) => {
+type FormInputProps = { label: string } & InputHTMLAttributes<HTMLInputElement>
+
+const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
   return (
     <div className='relative mt-2 w-full'>
       <input

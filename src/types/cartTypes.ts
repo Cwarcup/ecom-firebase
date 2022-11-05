@@ -17,7 +17,7 @@ import { CategoryItemType } from './categoryTypes'
 // }
 
 export type CartItemType = {
-  quantity: number
+  quantity?: number | any
 } & CategoryItemType
 
 // for single item in the cartItems array
