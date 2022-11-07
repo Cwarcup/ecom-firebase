@@ -18,7 +18,6 @@ const CategoryPage = () => {
   useEffect(() => {
     // iterate over the categoriesMap object and create a new array of items with they key that matches the category
     for (const [key, value] of Object.entries(categoriesMap)) {
-      console.log({ key, value })
       if (value.title.toLowerCase() === category) {
         setCategoryItems(value.items)
       }
