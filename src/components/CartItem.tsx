@@ -1,4 +1,7 @@
-//!! use in the cart checkout page - Cart.jsx
+// Use in the cart checkout page - Cart.jsxrepresents a line item in the cart
+// Has ability to remove, add, clear item from cart
+// Coordinates with the cart reducer to update the cart state (products, total, etc)
+// Accepts a cartItem prop
 
 import { useDispatch } from 'react-redux'
 import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../redux/slices/cartSlice'

@@ -1,4 +1,4 @@
-// save for later
+// save for later, not yet used
 
 const SaleFlag = ({ children }) => {
   return (

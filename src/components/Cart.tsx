@@ -1,3 +1,8 @@
+/*
+Is the dashboard for the cart page
+Iterates over the cartItems and displays them in a list using the CartItem component
+*/
+
 import CartItem from './CartItem'
 import { useSelector } from 'react-redux'
 import { selectCartItems, selectCartTotal } from '../redux/slices/cartSlice'

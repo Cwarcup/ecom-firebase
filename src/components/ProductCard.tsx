@@ -1,3 +1,7 @@
+// displays the products for a specific category
+// http://localhost:3000/shop/:category
+// used on src/components/categoryPage.tsx
+
 import { useDispatch } from 'react-redux'
 import { addItemToCart } from '../redux/slices/cartSlice'
 
@@ -11,7 +15,6 @@ type ProductCardProps = {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  console.log({ product })
   const dispatch = useDispatch()
 
   const handleAddItemToCart = () => {

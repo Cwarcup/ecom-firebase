@@ -1,3 +1,5 @@
+// typing inputs
+// used in src/components/SignIn.tsx and src/components/SignUp.tsx
 import { InputHTMLAttributes, FC } from 'react'
 
 type FormInputProps = { label: string } & InputHTMLAttributes<HTMLInputElement>

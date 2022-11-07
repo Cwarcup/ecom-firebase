@@ -1,3 +1,5 @@
+// Used on the homepage for each category
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 

@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-
 import FormInput from './FormInput'
 import Button from './Button'
 import AlertBox from './AlertBox'
 import { useDispatch } from 'react-redux'
-// use signUpUser action creator to sign up the user
 import { signUpUser } from '../redux/slices/userSlice'
 
 const SignUp = () => {

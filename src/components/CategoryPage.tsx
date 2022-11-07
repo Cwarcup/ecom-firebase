@@ -1,4 +1,6 @@
-// need to get the value from the URL
+// this is the page presented on the 'shop' page
+// displays the categories and links to the category page
+// categories are fetched from the firebase database and stored in the redux store
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import capitalizeFirstLetter from '../utils/capitalizeFirstLetter'
@@ -9,7 +11,10 @@ import type { CategoryItemType } from '../types/categoryTypes'
 
 const CategoryPage = () => {
   const { category } = useParams()
+  // need to get the value from the URL
+  // use this to link user to the correct category page upon clicking on a category
 
+  // get the categories from the redux store
   const categoriesMap = useSelector(selectCategoriesMap)
 
   const [categoryItems, setCategoryItems] = useState<CategoryItemType[]>([])

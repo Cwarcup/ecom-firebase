@@ -8,8 +8,6 @@ import { useDispatch } from 'react-redux'
 // displays the categories in the database as links
 // accessed at /shop
 const CategoryPreview = () => {
-  // !! save commented out code. it's useful for reference but not used.
-  // !! using hard coded categories for now, db doesn't have any categories data
   const dispatch = useDispatch()
 
   useEffect(() => {

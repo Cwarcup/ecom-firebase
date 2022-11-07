@@ -98,7 +98,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {categoryData.map((category) => {
+      {categoryData.map((category: any) => {
         return <CtaCard key={category.id} category={category} />
       })}
     </>
