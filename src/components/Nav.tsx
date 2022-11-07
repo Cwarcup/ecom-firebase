@@ -1,5 +1,5 @@
 import { Outlet, Link } from 'react-router-dom'
-import { FaCouch } from 'react-icons/fa'
+import { RiTShirt2Line } from 'react-icons/ri'
 import { signOutUser } from '../utils/firebase/firebaseUtils'
 import { useSelector } from 'react-redux'
 import { currentUserSelector } from '../redux/slices/userSlice'
@@ -15,7 +15,7 @@ const Nav = () => {
         <div className='relative mx-auto flex max-w-screen-lg flex-col py-4 sm:flex-row sm:items-center sm:justify-between'>
           <Link className='flex items-center text-2xl font-black' to='/'>
             <span className='mr-2 text-3xl text-secondary'>
-              <FaCouch />
+              <RiTShirt2Line />
             </span>
             <span>Louis Futon</span>
           </Link>
