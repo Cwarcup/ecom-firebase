@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './components/Home'
 import Nav from './components/Nav'
@@ -28,10 +28,15 @@ function App() {
     return unsubscribe // unsubscribe from the listener when the component unmounts
   }, [])
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false) // state for mobile menu
+
   return (
     <Routes>
-      <Route path='/' element={<Nav />}>
-        <Route index element={<Home />} />
+      <Route
+        path='/'
+        element={<Nav mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />}
+      >
+        <Route index element={<Home setMobileMenuOpen={setMobileMenuOpen} />} />
         <Route path='sign-in' element={<Authenticate />} />
         <Route path='sign-up' element={<SignUp />} />
         <Route path='shop/*' element={<CategoryPreview />} />
