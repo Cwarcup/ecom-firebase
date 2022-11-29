@@ -15,6 +15,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import Footer from './Footer'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -495,6 +496,7 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
         {/* regular nav */}
 
         <Outlet />
+        <Footer />
       </div>
     </>
   )
