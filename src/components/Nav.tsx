@@ -206,16 +206,29 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
                   </div>
 
                   <div className='px-4 py-6 space-y-6 border-t border-gray-200'>
-                    <div className='flow-root'>
-                      <Link to='/sign-up' className='block p-2 -m-2 font-medium text-gray-900'>
-                        Create an account
-                      </Link>
-                    </div>
-                    <div className='flow-root'>
-                      <Link to='/sign-in' className='block p-2 -m-2 font-medium text-gray-900'>
-                        Sign in
-                      </Link>
-                    </div>
+                    {currentUser ? (
+                      <div className='flow-root'>
+                        <button
+                          className='block p-2 -m-2 font-medium text-gray-900'
+                          onClick={signOutUser}
+                        >
+                          Sign out
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <div className='flow-root'>
+                          <Link to='/sign-up' className='block p-2 -m-2 font-medium text-gray-900'>
+                            Create an account
+                          </Link>
+                        </div>
+                        <div className='flow-root'>
+                          <Link to='/sign-in' className='block p-2 -m-2 font-medium text-gray-900'>
+                            Sign in
+                          </Link>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <div className='px-4 py-6 space-y-6 border-t border-gray-200'>
@@ -365,7 +378,9 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
                                         <div className='px-4 mx-auto max-w-7xl sm:px-6 lg:px-8'>
                                           <div className='grid grid-cols-4 py-16 gap-y-10 gap-x-8'>
                                             {category.featured.map((item) => (
-                                              <div key={item.name} className='relative group'
+                                              <div
+                                                key={item.name}
+                                                className='relative group'
                                                 onClick={close}
                                               >
                                                 <div className='overflow-hidden bg-gray-100 rounded-md aspect-w-1 aspect-h-1 group-hover:opacity-75'>
@@ -378,7 +393,6 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
                                                 <Link
                                                   to={item.href}
                                                   className='block mt-4 font-medium text-gray-900'
-
                                                 >
                                                   <span
                                                     className='absolute inset-0 z-10'
@@ -459,14 +473,16 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
 
                         {/* Cart */}
                         <div className='flow-root ml-4 lg:ml-8'>
-                          <a href='#' className='flex items-center p-2 -m-2 group'>
+                          <Link to='/cart' className='flex items-center p-2 -m-2 group'>
                             <ShoppingBagIcon
                               className='flex-shrink-0 w-6 h-6 text-white'
                               aria-hidden='true'
                             />
-                            <span className='ml-2 text-sm font-medium text-white'>0</span>
+                            <span className='ml-2 text-sm font-medium text-white'>
+                              {cartCount === 0 ? '0' : `${cartCount} items`}
+                            </span>
                             <span className='sr-only'>items in cart, view bag</span>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
