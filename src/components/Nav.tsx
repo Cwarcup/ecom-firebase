@@ -101,12 +101,12 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
         ],
       },
     ],
-    pages: [{ name: 'Company', href: '#' }],
+    pages: ['Hats', 'Jackets', 'Sneakers'],
   }
 
   return (
     <>
-      <div className='bg-black'>
+      <div>
         {/* Mobile nav */}
         <Transition.Root show={mobileMenuOpen} as={Fragment}>
           <Dialog as='div' className='relative z-40 lg:hidden' onClose={setMobileMenuOpen}>
@@ -198,9 +198,12 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
 
                   <div className='px-4 py-6 space-y-6 border-t border-gray-200'>
                     {navigation.pages.map((page) => (
-                      <div key={page.name} className='flow-root'>
-                        <Link to={page.href} className='block p-2 -m-2 font-medium text-gray-900'>
-                          {page.name}
+                      <div key={page} className='flow-root'>
+                        <Link
+                          to={`/shop/${page.toLowerCase()}`}
+                          className='block p-2 -m-2 font-medium text-gray-900'
+                        >
+                          {page}
                         </Link>
                       </div>
                     ))}
@@ -264,7 +267,7 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
         {/* Mobile nav end */}
 
         {/* regular nav */}
-        <header className='relative z-10'>
+        <header className='relative z-10 bg-gray-700'>
           <nav aria-label='Top'>
             {/* Top navigation */}
             <div className='bg-gray-900'>
@@ -369,7 +372,6 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
                                     leaveTo='opacity-0'
                                   >
                                     <Popover.Panel className='absolute inset-x-0 text-sm text-gray-500 top-full'>
-                                      {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                                       <div
                                         className='absolute inset-0 bg-white shadow top-1/2'
                                         aria-hidden='true'
@@ -417,13 +419,13 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
                           ))}
 
                           {navigation.pages.map((page) => (
-                            <a
-                              key={page.name}
-                              href={page.href}
+                            <Link
+                              key={page}
+                              to={`/shop/${page.toLowerCase()}`}
                               className='flex items-center text-sm font-medium text-white'
                             >
-                              {page.name}
-                            </a>
+                              {page}
+                            </Link>
                           ))}
                         </div>
                       </Popover.Group>
