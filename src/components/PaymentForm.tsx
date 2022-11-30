@@ -67,9 +67,6 @@ const PaymentForm = () => {
 
   return (
     <>
-      <h1 className='mb-3 relative text-2xl font-medium text-gray-700 sm:text-3xl'>
-        Secure Checkout<span className='mt-2 block h-1 w-10 bg-teal-600 sm:w-20'></span>
-      </h1>
       <form onSubmit={paymentHandler}>
         <CardElement
           options={{
@@ -89,7 +86,7 @@ const PaymentForm = () => {
         />
         <button
           type='submit'
-          className='group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800 mt-5'
+          className='inline-flex items-center justify-center w-full px-6 py-4 mt-5 text-lg font-semibold text-white transition-all duration-200 ease-in-out bg-gray-900 rounded-md group focus:shadow hover:bg-gray-800'
           disabled={!stripe || !elements}
         >
           {isProcessingPayment ? (
@@ -97,7 +94,7 @@ const PaymentForm = () => {
               Processing...
               <svg
                 aria-hidden='true'
-                className='ml-8 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600'
+                className='w-8 h-8 ml-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600'
                 viewBox='0 0 100 101'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'
@@ -117,7 +114,7 @@ const PaymentForm = () => {
               Checkout
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='group-hover:ml-8 ml-4 h-6 w-6 transition-all'
+                className='w-6 h-6 ml-4 transition-all group-hover:ml-8'
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
