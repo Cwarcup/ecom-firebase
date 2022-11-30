@@ -1,9 +1,8 @@
 import { Outlet, Link } from 'react-router-dom'
-import { RiTShirt2Line } from 'react-icons/ri'
 import { signOutUser } from '../utils/firebase/firebaseUtils'
 import { useSelector } from 'react-redux'
 import { currentUserSelector } from '../redux/slices/userSlice'
-import { selectCartCount } from '../redux/slices/cartSlice'
+import { selectCartCount, selectCartItems } from '../redux/slices/cartSlice'
 
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { useState, Fragment } from 'react'
@@ -16,6 +15,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import Footer from './Footer'
+import { CartItemType } from '../types/cartTypes'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -29,6 +29,7 @@ type NavProps = {
 const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
   const currentUser = useSelector(currentUserSelector)
   const cartCount = useSelector(selectCartCount)
+  const cartItems = useSelector(selectCartItems)
   const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 
   const navigation = {
@@ -475,18 +476,60 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
                         </a>
 
                         {/* Cart */}
-                        <div className='flow-root ml-4 lg:ml-8'>
-                          <Link to='/cart' className='flex items-center p-2 -m-2 group'>
+                        <Popover className='flow-root ml-4 text-sm lg:relative lg:ml-8'>
+                          <Popover.Button className='flex items-center p-2 -m-2 group'>
                             <ShoppingBagIcon
-                              className='flex-shrink-0 w-6 h-6 text-white'
+                              className='flex-shrink-0 w-6 h-6 text-gray-400 group-hover:text-gray-500'
                               aria-hidden='true'
                             />
                             <span className='ml-2 text-sm font-medium text-white'>
                               {cartCount === 0 ? '0' : `${cartCount} items`}
                             </span>
                             <span className='sr-only'>items in cart, view bag</span>
-                          </Link>
-                        </div>
+                          </Popover.Button>
+                          <Transition
+                            as={Fragment}
+                            enter='transition ease-out duration-200'
+                            enterFrom='opacity-0'
+                            enterTo='opacity-100'
+                            leave='transition ease-in duration-150'
+                            leaveFrom='opacity-100'
+                            leaveTo='opacity-0'
+                          >
+                            <Popover.Panel className='absolute inset-x-0 top-16 mt-px bg-white pb-6 shadow-lg sm:px-2 lg:top-full lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5'>
+                              <h2 className='sr-only'>Shopping Cart</h2>
+                              <form className='max-w-2xl px-4 mx-auto'>
+                                <ul role='list' className='divide-y divide-gray-200'>
+                                  {cartItems.map((product: CartItemType) => (
+                                    <li key={product.id} className='flex items-center py-6'>
+                                      <img
+                                        src={product.imageUrl}
+                                        alt={product.name}
+                                        className='flex-none w-16 h-16 border border-gray-200 rounded-md'
+                                      />
+                                      <div className='flex-auto ml-4'>
+                                        <h3 className='font-medium text-gray-900'>
+                                          {product.name}
+                                        </h3>
+                                        <p className='text-gray-500'>
+                                          Quantity: {product.quantity}
+                                        </p>
+                                      </div>
+                                    </li>
+                                  ))}
+                                </ul>
+
+                                <Link
+                                  to='/cart'
+                                  type='submit'
+                                  className='w-full px-4 py-2 text-sm font-medium text-center text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50'
+                                >
+                                  Checkout
+                                </Link>
+                              </form>
+                            </Popover.Panel>
+                          </Transition>
+                        </Popover>
                       </div>
                     </div>
                   </div>
