@@ -67,19 +67,19 @@ const Authenticate = () => {
 
   return (
     <div className='flex flex-wrap'>
-      <div className='flex w-full flex-col md:w-1/2'>
+      <div className='flex flex-col w-full md:w-1/2'>
         <div className='lg:w-[28rem] mx-auto my-auto flex flex-col justify-center p-8 md:justify-start md:px-6 md:pt-4 bg-white rounded-lg'>
-          <p className='text-left text-3xl font-bold'>Welcome back</p>
-          <p className='mt-2 text-left text-gray-500'>Welcome back, please enter your details.</p>
+          <p className='text-3xl font-bold text-left'>Welcome back</p>
+          <p className='mt-2 text-left text-gray-500'>Please enter your details.</p>
           <button
-            className='-2 mt-8 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-secondary ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-blue-400 bg-secondary text-white hover:text-base-100'
+            className='flex items-center justify-center px-4 py-1 mt-8 text-white transition border rounded-md outline-none -2 ring-secondary ring-offset-2 focus:ring-2 hover:border-transparent hover:bg-blue-400 bg-secondary hover:text-base-100'
             onClick={handleGoogleSignIn}
           >
-            <img className='mr-2 h-5' src='https://static.cdnlogo.com/logos/g/35/google-icon.svg' />{' '}
+            <img className='h-5 mr-2' src='https://static.cdnlogo.com/logos/g/35/google-icon.svg' />{' '}
             Log in with Google
           </button>
-          <div className='relative mt-8 flex h-px place-items-center bg-base-100'>
-            <div className='absolute left-1/2 h-6 w-14 -translate-x-1/2 bg-white text-center text-sm text-gray-500'>
+          <div className='relative flex h-px mt-8 place-items-center bg-base-100'>
+            <div className='absolute h-6 text-sm text-center text-gray-500 -translate-x-1/2 bg-white left-1/2 w-14'>
               or
             </div>
           </div>
@@ -94,7 +94,7 @@ const Authenticate = () => {
                 value={email}
               />
             </div>
-            <div className='mb-12 flex flex-col pt-4'>
+            <div className='flex flex-col pt-4 mb-12'>
               <FormInput
                 label='Password'
                 onChange={(e) => handleChange(e)}
@@ -108,11 +108,11 @@ const Authenticate = () => {
             </div>
           </form>
           <div className='py-12 text-center'>
-            <p className='whitespace-nowrap text-gray-600'>
+            <p className='text-gray-600 whitespace-nowrap'>
               Don&apos;t have an account?{' '}
               <Link
                 to='/sign-up'
-                className='underline-offset-4 font-semibold text-gray-900 underline'
+                className='font-semibold text-gray-900 underline underline-offset-4'
               >
                 Sign up for free.
               </Link>
@@ -120,15 +120,10 @@ const Authenticate = () => {
           </div>
         </div>
       </div>
-      <div className='pointer-events-none relative hidden h-screen select-none bg-black md:block md:w-1/2'>
-        <div className='absolute bottom-0 z-10 px-8 text-white opacity-100'>
-          <p className='mb-8 text-3xl font-semibold leading-10'>
-            Love modern furnature? <br /> We do too.
-          </p>
-        </div>
+      <div className='relative hidden h-screen bg-black pointer-events-none select-none md:block md:w-1/2'>
         <img
-          className='-z-1 absolute top-0 h-full w-full object-cover opacity-90'
-          src='https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'
+          className='absolute top-0 object-cover w-full h-full -z-1 '
+          src='https://tailwindui.com/img/ecommerce-images/home-page-03-feature-section-full-width.jpg'
         />
       </div>
     </div>
