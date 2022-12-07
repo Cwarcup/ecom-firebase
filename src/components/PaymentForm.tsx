@@ -28,6 +28,7 @@ const PaymentForm = () => {
 
     setIsProcessingPayment(true)
 
+    // Used to create a payment intent on the netlify serverless function
     const result = await fetch('/.netlify/functions/create-payment-intent', {
       method: 'POST',
       headers: {
@@ -36,6 +37,7 @@ const PaymentForm = () => {
       body: JSON.stringify({ amount: cartTotal }),
     }).then((res) => res.json())
 
+    // need the client secret to confirm the payment
     const {
       paymentIntent: { client_secret },
     } = result
