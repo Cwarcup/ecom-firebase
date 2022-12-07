@@ -246,35 +246,16 @@ const Nav = ({ mobileMenuOpen, setMobileMenuOpen }: NavProps) => {
                         <span className='sr-only'>Open menu</span>
                         <Bars3Icon className='w-6 h-6' aria-hidden='true' />
                       </button>
-
-                      {/* Search */}
-                      <a href='#' className='p-2 ml-2 text-white'>
-                        <span className='sr-only'>Search</span>
-                        <MagnifyingGlassIcon className='w-6 h-6' aria-hidden='true' />
-                      </a>
                     </div>
 
                     {/* Logo (lg-) */}
                     <a href='#' className='lg:hidden'>
-                      <span className='sr-only'>Your Company</span>
+                      <span className='sr-only'>Loaf</span>
                       <GiSlicedBread className='w-8 h-8 text-white' />
                     </a>
 
                     <div className='flex items-center justify-end flex-1'>
-                      <a href='#' className='hidden text-sm font-medium text-white lg:block'>
-                        Search
-                      </a>
-
                       <div className='flex items-center lg:ml-8'>
-                        {/* Help */}
-                        <a href='#' className='p-2 text-white lg:hidden'>
-                          <span className='sr-only'>Help</span>
-                          <QuestionMarkCircleIcon className='w-6 h-6' aria-hidden='true' />
-                        </a>
-                        <a href='#' className='hidden text-sm font-medium text-white lg:block'>
-                          Help
-                        </a>
-
                         {/* Cart */}
                         <Popover className='flow-root ml-4 text-sm lg:relative lg:ml-8'>
                           <Popover.Button className='flex items-center p-2 -m-2 group'>

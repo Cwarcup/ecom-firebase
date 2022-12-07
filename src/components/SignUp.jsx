@@ -20,8 +20,6 @@ const SignUp = () => {
   const { displayName, email, password } = formFields
   const [errorText, setErrorText] = useState(null)
 
-  const [data, setData] = useState({})
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
   }
@@ -46,22 +44,16 @@ const SignUp = () => {
   }
 
   return (
-    <div className='flex h-screen w-full items-center justify-center bg-base-100'>
-      <div className='w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-lg sm:flex'>
-        <div
-          className='m-2 w-full rounded-2xl bg-gray-400 bg-cover bg-center text-white sm:w-2/5'
-          style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80)',
-          }}
-        ></div>
-        <div className='w-full sm:w-3/5'>
-          <div className='p-8'>
-            <h1 className='text-3xl font-black text-slate-700'>Sign up</h1>
-            <p className='mt-2 mb-5 text-base leading-tight text-gray-600'>
-              Create an account to get started.
-            </p>
-            <form className='mt-8' onSubmit={handleSignUp}>
+    <div className='flex flex-wrap'>
+      <div className='flex flex-col w-full md:w-1/2'>
+        <div className='lg:w-[28rem] mx-auto my-auto flex flex-col justify-center p-8 md:justify-start md:px-6 md:pt-4 bg-white rounded-lg'>
+          <p className='text-3xl font-bold text-left'>Welcome!</p>
+          <p className='mt-2 text-left text-gray-500'>
+            Please enter your details below to create an account.
+          </p>
+
+          <form className='flex flex-col pt-3 md:pt-8' onSubmit={handleSignUp}>
+            <div className='flex flex-col pt-4'>
               <FormInput
                 label='Display Name'
                 onChange={(e) => handleChange(e)}
@@ -70,6 +62,8 @@ const SignUp = () => {
                 required
                 value={displayName}
               />
+            </div>
+            <div className='flex flex-col pt-4 mb-12'>
               <FormInput
                 label='Email'
                 onChange={(e) => handleChange(e)}
@@ -78,34 +72,41 @@ const SignUp = () => {
                 required
                 value={email}
               />
-
-              <FormInput
-                label='Password'
-                onChange={(e) => handleChange(e)}
-                type='password'
-                name='password'
-                required
-                value={password}
-              />
+              <div className='flex flex-col pt-4 mb-12'>
+                <FormInput
+                  label='Password'
+                  onChange={(e) => handleChange(e)}
+                  type='password'
+                  name='password'
+                  required
+                  value={password}
+                />
+              </div>
 
               <Button onChange={(e) => handleChange(e)} type='submit' value='Create account'>
                 Create account
               </Button>
-              {errorText && <AlertBox color={'blue'}>{errorText}</AlertBox>}
-            </form>
-            <div className='mt-4 text-center'>
-              <p className='text-sm text-gray-600'>
-                Already have an account?{' '}
-                <Link
-                  to='/sign-in'
-                  className='font-bold text-secondary no-underline hover:text-blue-400'
-                >
-                  Sign in
-                </Link>
-              </p>
+              {errorText && <AlertBox color={'red'}>{errorText}</AlertBox>}
             </div>
+          </form>
+          <div className='py-12 text-center'>
+            <p className='text-gray-600 whitespace-nowrap'>
+              Already have an account?{' '}
+              <Link
+                to='/sign-in'
+                className='font-semibold text-gray-900 underline underline-offset-4'
+              >
+                Sign in here
+              </Link>
+            </p>
           </div>
         </div>
+      </div>
+      <div className='relative hidden h-screen bg-black pointer-events-none select-none md:block md:w-1/2'>
+        <img
+          className='absolute top-0 object-cover w-full h-full -z-1 '
+          src='https://tailwindui.com/img/ecommerce-images/home-page-03-feature-section-full-width.jpg'
+        />
       </div>
     </div>
   )
