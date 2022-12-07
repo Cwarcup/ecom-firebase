@@ -1,21 +1,15 @@
 import { Outlet, Link } from 'react-router-dom'
-import { signOutUser } from '../utils/firebase/firebaseUtils'
 import { useSelector } from 'react-redux'
-import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
+import { Dialog, Popover, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import {
-  Bars3Icon,
-  MagnifyingGlassIcon,
-  QuestionMarkCircleIcon,
-  ShoppingBagIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
+import { Bars3Icon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { GiSlicedBread } from 'react-icons/gi'
 
+import Footer from './Footer'
+import { signOutUser } from '../utils/firebase/firebaseUtils'
 import { currentUserSelector } from '../redux/slices/userSlice'
 import { selectCartCount, selectCartItems } from '../redux/slices/cartSlice'
-import Footer from './Footer'
 import { CartItemType } from '../types/cartTypes'
 
 // function to conditionally join classNames together depending on the truthiness of the arguments
